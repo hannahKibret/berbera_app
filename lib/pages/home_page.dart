@@ -2,6 +2,7 @@ import 'package:berbera_app/pages/inventory_home.dart';
 import 'package:berbera_app/pages/profile_page.dart';
 import 'package:flutter/material.dart';
 import 'package:bubble_bottom_bar/bubble_bottom_bar.dart';
+import 'dash_board.dart';
 
 class HomePage extends StatefulWidget{
   @override
@@ -54,14 +55,27 @@ class _HomePageState extends State<HomePage> {
           BubbleBottomBarItem(
             backgroundColor: Colors.purple[900],
             icon: Icon(
-              Icons.dashboard,
+              Icons.home_outlined,
               color: Theme.of(context).primaryColor,
             ),
             activeIcon: Icon(
-              Icons.dashboard,
+              Icons.home_outlined,
               color: Colors.purple[900],
             ),
             title: Text('Home'),
+          ),
+
+          BubbleBottomBarItem(
+            backgroundColor: Colors.purple[900],
+            icon: Icon(
+              Icons.add_shopping_cart_outlined,
+              color: Theme.of(context).primaryColor,
+            ),
+            activeIcon: Icon(
+              Icons.add_shopping_cart_outlined,
+              color: Colors.purple[900],
+            ),
+            title: Text('Orders'),
           ),
           BubbleBottomBarItem(
             backgroundColor: Colors.purple[900],
@@ -78,18 +92,6 @@ class _HomePageState extends State<HomePage> {
           BubbleBottomBarItem(
             backgroundColor: Colors.purple[900],
             icon: Icon(
-              Icons.assignment,
-              color: Theme.of(context).primaryColor,
-            ),
-            activeIcon: Icon(
-              Icons.assignment,
-              color: Colors.purple[900],
-            ),
-            title: Text('Orders'),
-          ),
-          BubbleBottomBarItem(
-            backgroundColor: Colors.purple[900],
-            icon: Icon(
               Icons.person,
               color: Theme.of(context).primaryColor,
             ),
@@ -101,14 +103,10 @@ class _HomePageState extends State<HomePage> {
           ),
         ],
       ),
-      body: (currentIndex == 0)
-          ?
-      Icon(
-        Icons.folder_open,
-        size: 150.0,
-        color: Colors.indigo,
-      )
-          : (currentIndex == 1)
+      body:
+      (currentIndex == 0)
+          ?Home()
+          : (currentIndex == 2)
           ? InventoryHome()
           : (currentIndex == 3)
           ? ProfilePage()
