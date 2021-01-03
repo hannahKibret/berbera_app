@@ -20,7 +20,6 @@ List<Item> loadItem(){
   item1.detail = 'fkjfkjfkjd fjkjf jfkf';
   item1.date = 'Nov 2';
   item1.image = null;
-
   item2.itemName = 'Malckky';
   item2.brandName = 'Nike';
   item2.category = 'Female';

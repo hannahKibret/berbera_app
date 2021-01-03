@@ -1,3 +1,4 @@
+import 'package:berbera_app/services/api_service.dart';
 import 'package:flutter/material.dart';
 
 import 'home_page.dart';
@@ -10,7 +11,18 @@ class SignInPage extends StatefulWidget {
 }
 
 class _SignInPageState extends State<SignInPage> {
-  final _formKey = GlobalKey<FormState>();
+
+  bool isApiProcess = false;
+  GlobalKey<FormState> globalkey = GlobalKey<FormState>();
+String username;
+String password;
+APIService apiService;
+  @override
+  void initstate(){
+    super.initState();
+
+  }
+ // final _formKey = GlobalKey<FormState>();
 
   @override
   Widget build(BuildContext context) {
@@ -87,7 +99,7 @@ class _SignInPageState extends State<SignInPage> {
                   width: MediaQuery.of(context).size.width * 0.75,
                   padding: EdgeInsets.only(top: height * 1.0),
                   child: Form(
-                    key: _formKey,
+                    key: globalkey,
                     child: ListView(
                       shrinkWrap: true,
                       children: <Widget>[
@@ -95,16 +107,19 @@ class _SignInPageState extends State<SignInPage> {
                           padding: const EdgeInsets.all(20.0),
                         ),
                         TextFormField(
-                          keyboardType: TextInputType.phone,
+                          keyboardType: TextInputType.emailAddress,
+                          onChanged:(text) {username = text;},
                           decoration: const InputDecoration(
                             icon: const Icon(Icons.phone),
-                            hintText: 'Enter your number',
-                            labelText: 'Phone Number',
+                          //  hintText: 'Enter your number',
+                            labelText: 'Email',
                           ),
                         ),
                         Padding(
                           padding: const EdgeInsets.only(top: 5.0),
                           child: TextFormField(
+                            obscureText: true,
+                            onChanged:(text) {password = text;},
                             decoration: const InputDecoration(
                               icon: const Icon(Icons.vpn_key),
                               hintText: 'Enter your password',
@@ -121,14 +136,71 @@ class _SignInPageState extends State<SignInPage> {
                                   borderRadius: BorderRadius.circular(30.0),
                                   side: BorderSide(color: Theme.of(context).primaryColor)),
                               onPressed: () {
-                                Navigator.of(context).pop();
+                                //TODO: login Action
+
+                                setState(() {
+                                  isApiProcess = true;
+                                });
+                                apiService = new APIService();
+                                apiService.loginUser(username, password).then((user) {
+                                  print(username+password);
+                                //  print(model.code);
+                                if(user != null){
+                                print(user.data.toJson());
+
+                                  return showDialog(
+                                    context: context,
+                                    builder: (ctx) => AlertDialog(
+                                      title: Text("Log in"),
+                                      content: Text("LOGIN OK"),
+                                      actions: <Widget>[
+                                        FlatButton(
+                                          child: Text("okay"),
+                                          onPressed: () {
+                                            Navigator.of(ctx).pop();
+                                            Navigator.of(context).pop();
+                                            Navigator.push(
+                                              context,
+                                              MaterialPageRoute(
+                                                builder: (context) => HomePage(),
+                                                settings: RouteSettings(arguments: ''),
+                                              ),
+                                            );
+                                          },
+                                        ),
+                                      ],
+                                    ),
+                                  );
+                              }
+                                else{
+                                  return showDialog(
+                                    context: context,
+                                    builder: (ctx) => AlertDialog(
+                                      title: Text("Log in"),
+                                      content: Text("LOGIN Faild"),
+                                      actions: <Widget>[
+                                        FlatButton(
+                                          child: Text("CANCEL"),
+                                          onPressed: () {
+                                            Navigator.of(ctx).pop();
+
+                                          },
+                                        ),
+                                      ],
+                                    ),
+                                  );
+                                }
+                                }
+                                );
+
+                             /*   Navigator.of(context).pop();
                                 Navigator.push(
                                   context,
                                   MaterialPageRoute(
                                     builder: (context) => HomePage(),
                                     settings: RouteSettings(arguments: ''),
                                   ),
-                                );
+                                ); */
                               },
                               textColor: Colors.white,
                               color: Theme.of(context).primaryColor,

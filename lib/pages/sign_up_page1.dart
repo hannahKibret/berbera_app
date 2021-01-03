@@ -1,4 +1,6 @@
+import 'package:berbera_app/models/User.dart';
 import 'package:berbera_app/pages/sign_up_page2.dart';
+import 'package:berbera_app/services/api_service.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 
@@ -9,6 +11,19 @@ class SignUp1 extends StatefulWidget{
 }
 
 class _SignUp1State extends State<SignUp1> {
+
+  APIService apiService;
+  User user;
+
+  @override
+  void initstate(){
+    super.initState();
+    apiService = new APIService();
+    user = new User();
+    GlobalKey<FormState> globalKey = GlobalKey<FormState>();
+    bool isAPIcallProcess = false;
+  }
+
   final _formKey = GlobalKey<FormState>();
   @override
   Widget build(BuildContext context) {
