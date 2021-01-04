@@ -6,6 +6,7 @@ import 'package:berbera_app/models/Notification.dart';
 import 'package:berbera_app/models/Order.dart';
 import 'package:berbera_app/models/Product.dart';
 import 'package:berbera_app/models/User.dart';
+import 'package:berbera_app/models/Vendor.dart';
 import 'package:berbera_app/models/login_model.dart';
 import 'package:dio/dio.dart';
 
@@ -19,7 +20,8 @@ Future<bool> createUser(User user) async{
   try{
     var response = await Dio().post(
       Config.wp_URL + Config.userURL,
-      data: user.toJson(),
+      //TODO: Pass user data here
+      //data: user.toJson(),
       options: new Options(
         headers: {
           HttpHeaders.authorizationHeader: 'Basic $authToken',
@@ -80,6 +82,65 @@ Future<List<Product>> getProducts(String id)async{
   }
 }
 
+Future<Product> update_create_Prodcut(Product product, String id) async{
+  if(id == null){
+    try{
+      var response = await Dio().put(Config.wcfmURL + Config.products+product.id, data: product.toJSON(),
+          options: new Options(
+              headers: {
+                HttpHeaders
+                    .contentTypeHeader: "application/x-www-from-urlencoded",
+                HttpHeaders
+                    .authorizationHeader: "Bearer eyJ0eXAiOiJKV1QiLCJhbGciOiJIUzI1NiJ9.eyJpc3MiOiJodHRwczpcL1wva29yZW50aWMuY29tIiwiaWF0IjoxNjA5Njc0ODUwLCJuYmYiOjE2MDk2NzQ4NTAsImV4cCI6MTYxMDI3OTY1MCwiZGF0YSI6eyJ1c2VyIjp7ImlkIjoiMTMifX19.45WUjBaYxgEdB2AedwEbKI3hwkajKvRGYS_cewTQJY0"
+              }
+          ));
+      if (response.statusCode == 200) {
+        Product updated_product = new Product();
+        updated_product = Product.fromJSON(response.data);
+        return updated_product;
+      }
+    } on DioError catch (e) {}
+  }else{
+    try{
+      var response = await Dio().post(Config.wcfmURL + Config.products, data: product.toJSON(),
+          options: new Options(
+              headers: {
+                HttpHeaders
+                    .contentTypeHeader: "application/x-www-from-urlencoded",
+                HttpHeaders
+                    .authorizationHeader: "Bearer eyJ0eXAiOiJKV1QiLCJhbGciOiJIUzI1NiJ9.eyJpc3MiOiJodHRwczpcL1wva29yZW50aWMuY29tIiwiaWF0IjoxNjA5Njc0ODUwLCJuYmYiOjE2MDk2NzQ4NTAsImV4cCI6MTYxMDI3OTY1MCwiZGF0YSI6eyJ1c2VyIjp7ImlkIjoiMTMifX19.45WUjBaYxgEdB2AedwEbKI3hwkajKvRGYS_cewTQJY0"
+              }
+          ));
+      if (response.statusCode == 200) {
+        Product updated_product = new Product();
+        updated_product = Product.fromJSON(response.data);
+        return updated_product;
+      }
+    } on DioError catch (e) {}
+  }
+
+}
+
+Future<Product> deleteProdcut(id) async
+{
+  try{
+    var response = await Dio().delete(Config.wcfmURL + Config.products+id,
+        options: new Options(
+            headers: {
+              HttpHeaders
+                  .contentTypeHeader: "application/x-www-from-urlencoded",
+              HttpHeaders
+                  .authorizationHeader: "Bearer eyJ0eXAiOiJKV1QiLCJhbGciOiJIUzI1NiJ9.eyJpc3MiOiJodHRwczpcL1wva29yZW50aWMuY29tIiwiaWF0IjoxNjA5Njc0ODUwLCJuYmYiOjE2MDk2NzQ4NTAsImV4cCI6MTYxMDI3OTY1MCwiZGF0YSI6eyJ1c2VyIjp7ImlkIjoiMTMifX19.45WUjBaYxgEdB2AedwEbKI3hwkajKvRGYS_cewTQJY0"
+            }
+        ));
+    if (response.statusCode == 200) {
+      Product deleted_product = new Product();
+      deleted_product = Product.fromJSON(response.data);
+      return deleted_product;
+    }
+  } on DioError catch (e) {}
+}
+
 
 
 Future<List<Order>> getOrders(String id)async{
@@ -120,6 +181,27 @@ Future<List<Order>> getOrders(String id)async{
       }
     } on DioError catch (e) {}
   }
+}
+
+Future<Order> updateOrder (String status, String id) async{
+  try{
+    var response = await Dio().put(Config.wcfmURL + Config.orders+id, data:{
+      "status" : "status"
+    },
+        options: new Options(
+            headers: {
+              HttpHeaders
+                  .contentTypeHeader: "application/x-www-from-urlencoded",
+              HttpHeaders
+                  .authorizationHeader: "Bearer eyJ0eXAiOiJKV1QiLCJhbGciOiJIUzI1NiJ9.eyJpc3MiOiJodHRwczpcL1wva29yZW50aWMuY29tIiwiaWF0IjoxNjA5Njc0ODUwLCJuYmYiOjE2MDk2NzQ4NTAsImV4cCI6MTYxMDI3OTY1MCwiZGF0YSI6eyJ1c2VyIjp7ImlkIjoiMTMifX19.45WUjBaYxgEdB2AedwEbKI3hwkajKvRGYS_cewTQJY0"
+            }
+        ));
+    if (response.statusCode == 200) {
+      Order order = new Order();
+      order = Order.fromJSON(response.data);
+      return order;
+    }
+  } on DioError catch (e) {}
 }
 
 Future<List<Notification>> getNotifications(String id)async{
@@ -180,7 +262,7 @@ Future<List<Notification>> getNotifications(String id)async{
 
       if(response.statusCode == 200){
         LoginResponseModel user = new LoginResponseModel();
-        User user_data = User.fromJson(response.data);
+        Vendor user_data = Vendor.fromJson(response.data);
        // print(user_data.token);
         user.data = user_data;
         user.statusCode = response.statusCode;

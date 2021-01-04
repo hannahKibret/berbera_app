@@ -1,11 +1,11 @@
-import 'User.dart';
+import 'Vendor.dart';
 
 class LoginResponseModel{
   bool success;
   int statusCode;
   String code;
   String message;
-  User data;
+  Vendor data;
 
   LoginResponseModel({
       this.success, this.statusCode, this.code, this.message, this.data});
@@ -15,7 +15,7 @@ class LoginResponseModel{
     statusCode = json['statusCode'];
     code = json['code'];
     message = json['message'];
-    data = json['data'] != null? new User.fromJson(json['data']):null;
+    data = json['data'] != null? new Vendor.fromJson(json['data']):null;
 
   }
 
