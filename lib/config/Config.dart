@@ -4,12 +4,12 @@ class Config{
   static String wp_URL = "https://korentic.com/wp-json/wc/v1/";
   static String userURL = "customers";
   static String wcfmURL = "https://korentic.com/wp-json/wcfmmp/v1/";
-  static String orders = "orders";
-  static String products = "products";
-  static String review = "reviews";
-  static String filter = "products/filter";
-  static String categories = "products/categories";
-  static String notifications = "notifications";
-  static String restricted_capabilities = "restricted-capabilities";
+  static String orders = "orders/";
+  static String products = "products/";
+  static String review = "reviews/";
+  static String filter = "products/filter/";
+  static String categories = "products/categories/";
+  static String notifications = "notifications/";
+  static String restricted_capabilities = "restricted-capabilities/";
   static String tokenURL = "https://www.korentic.com/wp-json/jwt-auth/v1/token";
 }

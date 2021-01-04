@@ -2,8 +2,10 @@ import 'dart:convert';
 import 'dart:io';
 
 import 'package:berbera_app/config/Config.dart';
+import 'package:berbera_app/models/Notification.dart';
+import 'package:berbera_app/models/Order.dart';
+import 'package:berbera_app/models/Product.dart';
 import 'package:berbera_app/models/User.dart';
-import 'package:berbera_app/models/item.dart';
 import 'package:berbera_app/models/login_model.dart';
 import 'package:dio/dio.dart';
 
@@ -34,14 +36,132 @@ Future<bool> createUser(User user) async{
     }
 
   }
-
   return ret;
 
 }
 
-Future<Item> getproducts(){
-
+Future<List<Product>> getProducts(String id)async{
+  if(id == null) {
+    try {
+      var response = await Dio().get(Config.wcfmURL + Config.products,
+          options: new Options(
+              headers: {
+                HttpHeaders
+                    .contentTypeHeader: "application/x-www-from-urlencoded",
+                HttpHeaders
+                    .authorizationHeader: "Bearer eyJ0eXAiOiJKV1QiLCJhbGciOiJIUzI1NiJ9.eyJpc3MiOiJodHRwczpcL1wva29yZW50aWMuY29tIiwiaWF0IjoxNjA5Njc0ODUwLCJuYmYiOjE2MDk2NzQ4NTAsImV4cCI6MTYxMDI3OTY1MCwiZGF0YSI6eyJ1c2VyIjp7ImlkIjoiMTMifX19.45WUjBaYxgEdB2AedwEbKI3hwkajKvRGYS_cewTQJY0"
+              }
+          ));
+      if (response.statusCode == 200) {
+        Iterable l = json.decode(response.data);
+        List<Product> products = List<Product>.from(
+            l.map((model) => Notification.fromJSON(model)));
+        return products;
+      }
+    } on DioError catch (e) {}
+  }else{
+    try {
+      var response = await Dio().get(Config.wcfmURL + Config.products+id,
+          options: new Options(
+              headers: {
+                HttpHeaders
+                    .contentTypeHeader: "application/x-www-from-urlencoded",
+                HttpHeaders
+                    .authorizationHeader: "Bearer eyJ0eXAiOiJKV1QiLCJhbGciOiJIUzI1NiJ9.eyJpc3MiOiJodHRwczpcL1wva29yZW50aWMuY29tIiwiaWF0IjoxNjA5Njc0ODUwLCJuYmYiOjE2MDk2NzQ4NTAsImV4cCI6MTYxMDI3OTY1MCwiZGF0YSI6eyJ1c2VyIjp7ImlkIjoiMTMifX19.45WUjBaYxgEdB2AedwEbKI3hwkajKvRGYS_cewTQJY0"
+              }
+          ));
+      if (response.statusCode == 200) {
+        Iterable l = json.decode(response.data);
+        List<Product> products = List<Product>.from(
+            l.map((model) => Notification.fromJSON(model)));
+        return products;
+      }
+    } on DioError catch (e) {}
+  }
 }
+
+
+
+Future<List<Order>> getOrders(String id)async{
+  if(id == null) {
+    try {
+      var response = await Dio().get(Config.wcfmURL + Config.orders,
+          options: new Options(
+              headers: {
+                HttpHeaders
+                    .contentTypeHeader: "application/x-www-from-urlencoded",
+                HttpHeaders
+                    .authorizationHeader: "Bearer eyJ0eXAiOiJKV1QiLCJhbGciOiJIUzI1NiJ9.eyJpc3MiOiJodHRwczpcL1wva29yZW50aWMuY29tIiwiaWF0IjoxNjA5Njc0ODUwLCJuYmYiOjE2MDk2NzQ4NTAsImV4cCI6MTYxMDI3OTY1MCwiZGF0YSI6eyJ1c2VyIjp7ImlkIjoiMTMifX19.45WUjBaYxgEdB2AedwEbKI3hwkajKvRGYS_cewTQJY0"
+              }
+          ));
+      if (response.statusCode == 200) {
+        Iterable l = json.decode(response.data);
+        List<Order> Orders = List<Order>.from(
+            l.map((model) => Notification.fromJSON(model)));
+        return Orders;
+      }
+    } on DioError catch (e) {}
+  }else{
+    try {
+      var response = await Dio().get(Config.wcfmURL + Config.orders+id,
+          options: new Options(
+              headers: {
+                HttpHeaders
+                    .contentTypeHeader: "application/x-www-from-urlencoded",
+                HttpHeaders
+                    .authorizationHeader: "Bearer eyJ0eXAiOiJKV1QiLCJhbGciOiJIUzI1NiJ9.eyJpc3MiOiJodHRwczpcL1wva29yZW50aWMuY29tIiwiaWF0IjoxNjA5Njc0ODUwLCJuYmYiOjE2MDk2NzQ4NTAsImV4cCI6MTYxMDI3OTY1MCwiZGF0YSI6eyJ1c2VyIjp7ImlkIjoiMTMifX19.45WUjBaYxgEdB2AedwEbKI3hwkajKvRGYS_cewTQJY0"
+              }
+          ));
+      if (response.statusCode == 200) {
+        Iterable l = json.decode(response.data);
+        List<Order> orders = List<Order>.from(
+            l.map((model) => Notification.fromJSON(model)));
+        return orders;
+      }
+    } on DioError catch (e) {}
+  }
+}
+
+Future<List<Notification>> getNotifications(String id)async{
+  if(id == null) {
+    try {
+      var response = await Dio().get(Config.wcfmURL + Config.notifications,
+          options: new Options(
+              headers: {
+                HttpHeaders
+                    .contentTypeHeader: "application/x-www-from-urlencoded",
+                HttpHeaders
+                    .authorizationHeader: "Bearer eyJ0eXAiOiJKV1QiLCJhbGciOiJIUzI1NiJ9.eyJpc3MiOiJodHRwczpcL1wva29yZW50aWMuY29tIiwiaWF0IjoxNjA5Njc0ODUwLCJuYmYiOjE2MDk2NzQ4NTAsImV4cCI6MTYxMDI3OTY1MCwiZGF0YSI6eyJ1c2VyIjp7ImlkIjoiMTMifX19.45WUjBaYxgEdB2AedwEbKI3hwkajKvRGYS_cewTQJY0"
+              }
+          ));
+      if (response.statusCode == 200) {
+        Iterable l = json.decode(response.data);
+        List<Notification> Notifications = List<Notification>.from(
+            l.map((model) => Notification.fromJSON(model)));
+        return Notifications;
+      }
+    } on DioError catch (e) {}
+  }else{
+    try {
+      var response = await Dio().get(Config.wcfmURL + Config.notifications+id,
+          options: new Options(
+              headers: {
+                HttpHeaders
+                    .contentTypeHeader: "application/x-www-from-urlencoded",
+                HttpHeaders
+                    .authorizationHeader: "Bearer eyJ0eXAiOiJKV1QiLCJhbGciOiJIUzI1NiJ9.eyJpc3MiOiJodHRwczpcL1wva29yZW50aWMuY29tIiwiaWF0IjoxNjA5Njc0ODUwLCJuYmYiOjE2MDk2NzQ4NTAsImV4cCI6MTYxMDI3OTY1MCwiZGF0YSI6eyJ1c2VyIjp7ImlkIjoiMTMifX19.45WUjBaYxgEdB2AedwEbKI3hwkajKvRGYS_cewTQJY0"
+              }
+          ));
+      if (response.statusCode == 200) {
+        Iterable l = json.decode(response.data);
+        List<Notification> notifications = List<Notification>.from(
+            l.map((model) => Notification.fromJSON(model)));
+        return notifications;
+      }
+    } on DioError catch (e) {}
+  }
+}
+
 
   Future<LoginResponseModel> loginUser(String username, String password) async{
 
