@@ -9,16 +9,12 @@ class MyApp extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return MaterialApp(
-      title: 'Berbera',
-      theme: ThemeData(
-        primaryColor: col,
-        fontFamily: 'Helvetica',
-        brightness: Brightness.dark,
-      ),
-      home: SignInPage()
-    );
+        title: 'Berbera',
+        theme: ThemeData(
+          primaryColor: col,
+          fontFamily: 'Helvetica',
+          brightness: Brightness.dark,
+        ),
+        home: SignInPage());
   }
 }
-
-
-

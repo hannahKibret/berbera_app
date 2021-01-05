@@ -1,4 +1,4 @@
-class Vendor{
+class Vendor {
   String token;
   int store_id;
   String email;
@@ -6,10 +6,15 @@ class Vendor{
   String display_name;
   String store_name;
 
-  Vendor({this.email, this.token, this.store_id, this.niceName,this.store_name,
-    this.display_name});
+  Vendor(
+      {this.email,
+      this.token,
+      this.store_id,
+      this.niceName,
+      this.store_name,
+      this.display_name});
 
-  Vendor.fromJson(Map<String, dynamic> json){
+  Vendor.fromJson(Map<String, dynamic> json) {
     token = json['token'];
     store_id = json['store_id'];
     email = json['user_email'];
@@ -18,7 +23,7 @@ class Vendor{
     display_name = json['user_display_name'];
   }
 
-  Map<String, dynamic> toJson(){
+  Map<String, dynamic> toJson() {
     final Map<String, dynamic> data = new Map<String, dynamic>();
     data['token'] = this.token;
     data['store_id'] = this.store_id;
@@ -29,5 +34,4 @@ class Vendor{
 
     return data;
   }
-
 }

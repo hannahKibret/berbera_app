@@ -1,7 +1,7 @@
 import 'package:berbera_app/pages/home_page.dart';
 import 'package:flutter/material.dart';
 
-class Verification extends StatefulWidget{
+class Verification extends StatefulWidget {
   @override
   _VerificationState createState() => _VerificationState();
 }
@@ -11,22 +11,25 @@ class _VerificationState extends State<Verification> {
   Widget build(BuildContext context) {
     return MaterialApp(
         theme: ThemeData(
-        primaryColor: Color(0xFFFFA500),
-        fontFamily: 'Helvetica',
-    ),
-      home: Scaffold(
-      body: Column(
-        mainAxisAlignment: MainAxisAlignment.center,
+          primaryColor: Color(0xFFFFA500),
+          fontFamily: 'Helvetica',
+        ),
+        home: Scaffold(
+          body: Column(
+            mainAxisAlignment: MainAxisAlignment.center,
             children: <Widget>[
-              Text('Verification Code', style: TextStyle(fontSize: 25, fontWeight: FontWeight.bold),),
+              Text(
+                'Verification Code',
+                style: TextStyle(fontSize: 25, fontWeight: FontWeight.bold),
+              ),
               Padding(
                 padding: const EdgeInsets.fromLTRB(50, 30, 50, 0),
                 child: TextField(
-                    keyboardType: TextInputType.number,
-                    decoration: const InputDecoration(
-                      hintText: 'Enter your verification code',
-                    ),
+                  keyboardType: TextInputType.number,
+                  decoration: const InputDecoration(
+                    hintText: 'Enter your verification code',
                   ),
+                ),
               ),
               Padding(
                 padding: const EdgeInsets.only(top: 58.0),
@@ -36,8 +39,9 @@ class _VerificationState extends State<Verification> {
                   child: RaisedButton(
                     shape: RoundedRectangleBorder(
                         borderRadius: BorderRadius.circular(10.0),
-                        side: BorderSide(color: Theme.of(context).primaryColor)),
-                    onPressed: (){
+                        side:
+                            BorderSide(color: Theme.of(context).primaryColor)),
+                    onPressed: () {
                       Navigator.push(
                         context,
                         MaterialPageRoute(
@@ -49,14 +53,13 @@ class _VerificationState extends State<Verification> {
                     textColor: Colors.white,
                     color: Theme.of(context).primaryColor,
                     child: Text("Continue".toUpperCase(),
-                        style: TextStyle(fontSize: 14, fontWeight: FontWeight.bold)),
+                        style: TextStyle(
+                            fontSize: 14, fontWeight: FontWeight.bold)),
                   ),
                 ),
               )
             ],
           ),
-
-    )
-    );
+        ));
   }
 }

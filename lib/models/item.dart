@@ -1,17 +1,21 @@
-
-class Item{
-  String itemName, brandName, category,detail, date,image;
-  int price,qty;
-  Item({this.itemName, this.brandName, this.category, this.price, this.qty, this.detail, this.image});
-
+class Item {
+  String itemName, brandName, category, detail, date, image;
+  int price, qty;
+  Item(
+      {this.itemName,
+      this.brandName,
+      this.category,
+      this.price,
+      this.qty,
+      this.detail,
+      this.image});
 }
-List<String> Categories = ["Male","Female","Kids","All"];
 
-Item item1
-= Item();
-Item item2
-= Item();
-List<Item> loadItem(){
+List<String> Categories = ["Male", "Female", "Kids", "All"];
+
+Item item1 = Item();
+Item item2 = Item();
+List<Item> loadItem() {
   item1.itemName = 'Balckky';
   item1.brandName = 'Nike';
   item1.category = 'Male';
@@ -28,7 +32,6 @@ List<Item> loadItem(){
   item2.detail = 'fkjfkjfkjd fjkjf jfkf';
   item2.date = 'Oct 26';
   item2.image = null;
-  List<Item> items = [item1,item2];
+  List<Item> items = [item1, item2];
   return items;
 }
-

@@ -9,18 +9,16 @@ class Home extends StatefulWidget {
   State<StatefulWidget> createState() {
     return HomeState();
   }
-
 }
 
 class HomeState extends State<Home> {
-
-  var dateTextStyle =
-  TextStyle(
-    fontSize: 18, color: Color(0xFF004A82), fontWeight: FontWeight.bold,);
-
+  var dateTextStyle = TextStyle(
+    fontSize: 18,
+    color: Color(0xFF004A82),
+    fontWeight: FontWeight.bold,
+  );
 
   int touchedIndex;
-
 
   @override
   Widget build(BuildContext context) {
@@ -34,7 +32,6 @@ class HomeState extends State<Home> {
           crossAxisSpacing: 5.0,
           mainAxisSpacing: 8.0,
           children: <Widget>[
-
             Padding(
               padding: const EdgeInsets.only(top: 0),
               child: myTextItems("New Orders", "No New Order"),
@@ -55,15 +52,12 @@ class HomeState extends State<Home> {
               padding: const EdgeInsets.all(8.0),
               child: myPiChart(),
             ),
-
           ],
           staggeredTiles: [
-
             StaggeredTile.extent(2, 150.0),
             StaggeredTile.extent(2, 312.0),
             StaggeredTile.extent(2, 150.0),
             StaggeredTile.extent(4, 450.0),
-
           ],
         ),
       ),
@@ -146,7 +140,6 @@ class HomeState extends State<Home> {
     );
   }
 
-
   Material myLineChart() {
     return Material(
       color: Colors.white,
@@ -159,18 +152,21 @@ class HomeState extends State<Home> {
           children: [
             Padding(
               padding: const EdgeInsets.all(8.0),
-              child: Text("Monthly Sales", style: TextStyle(
-                fontWeight: FontWeight.bold,
-                fontSize: 25.0,
-                color: Color(0xFF004A82),
-              )),
+              child: Text("Monthly Sales",
+                  style: TextStyle(
+                    fontWeight: FontWeight.bold,
+                    fontSize: 25.0,
+                    color: Color(0xFF004A82),
+                  )),
             ),
             Container(
               alignment: Alignment.center,
               margin: EdgeInsets.only(top: 25),
               child: LineChart(
                 LineChartData(
-                  lineTouchData: LineTouchData(enabled: true,),
+                  lineTouchData: LineTouchData(
+                    enabled: true,
+                  ),
                   lineBarsData: [
                     LineChartBarData(
                       spots: [
@@ -192,9 +188,7 @@ class HomeState extends State<Home> {
                           Colors.orange,
                           Colors.white
                         ],
-
                       ),
-
                       dotData: FlDotData(
                         show: true,
                       ),
@@ -205,7 +199,7 @@ class HomeState extends State<Home> {
                     bottomTitles: SideTitles(
                         showTitles: true,
                         reservedSize: 12,
-                        textStyle: dateTextStyle,
+                        //TextStyles: dateTextStyle,
                         getTitles: (value) {
                           switch (value.toInt()) {
                             case 0:
@@ -225,7 +219,7 @@ class HomeState extends State<Home> {
                     leftTitles: SideTitles(
                       reservedSize: 25,
                       showTitles: true,
-                      textStyle: dateTextStyle,
+                      //textStyle: dateTextStyle,
                       getTitles: (value) {
                         return '${value + 1}K';
                       },
@@ -257,7 +251,6 @@ class HomeState extends State<Home> {
     );
   }
 
-
   Material myTextItems(String title, String subtitle) {
     return Material(
       color: Colors.white,
@@ -269,22 +262,25 @@ class HomeState extends State<Home> {
         children: <Widget>[
           Padding(
             padding: EdgeInsets.only(top: 12.0),
-            child: Text(title, style: TextStyle(
-              fontWeight: FontWeight.bold,
-              fontSize: 25.0,
-              color: Color(0xFF004A82),
-            ),),
+            child: Text(
+              title,
+              style: TextStyle(
+                fontWeight: FontWeight.bold,
+                fontSize: 25.0,
+                color: Color(0xFF004A82),
+              ),
+            ),
           ),
-
           Padding(
             padding: EdgeInsets.only(top: 30.0),
-            child: Text(subtitle, style: TextStyle(
-                fontSize: 20,
-                fontWeight: FontWeight.bold,
-                color: Color(0xFF707070)
-            ),),
+            child: Text(
+              subtitle,
+              style: TextStyle(
+                  fontSize: 20,
+                  fontWeight: FontWeight.bold,
+                  color: Color(0xFF707070)),
+            ),
           ),
-
         ],
       ),
     );
@@ -303,17 +299,18 @@ class HomeState extends State<Home> {
         child: Column(
           // mainAxisAlignment:MainAxisAlignment.center,
           children: <Widget>[
-
             Padding(
               padding: EdgeInsets.only(top: 10.0),
-              child: Text("Stock", style: TextStyle(
-                fontWeight: FontWeight.bold,
-                fontSize: 25.0,
-                color: Color(0xFF004A82),
-              ),),
+              child: Text(
+                "Stock",
+                style: TextStyle(
+                  fontWeight: FontWeight.bold,
+                  fontSize: 25.0,
+                  color: Color(0xFF004A82),
+                ),
+              ),
             ),
             Column(
-
               children: [
                 Padding(
                   padding: EdgeInsets.all(0.0),
@@ -324,7 +321,8 @@ class HomeState extends State<Home> {
                       new CircularStackEntry(
                         <CircularSegmentEntry>[
                           new CircularSegmentEntry(
-                              max_val.toDouble(), Colors.white, rankKey: 'Q1'),
+                              max_val.toDouble(), Colors.white,
+                              rankKey: 'Q1'),
                           new CircularSegmentEntry(
                               min_val.toDouble(), Color(0xff40b24b),
                               rankKey: 'Q4'),
@@ -337,24 +335,25 @@ class HomeState extends State<Home> {
                     chartType: CircularChartType.Radial,
                   ),
                 ),
-                Text("$val%", style: TextStyle(
-                  fontWeight: FontWeight.bold,
-                  fontSize: 30.0,
-                  color: Color(0xFF004A82),
+                Text(
+                  "$val%",
+                  style: TextStyle(
+                    fontWeight: FontWeight.bold,
+                    fontSize: 30.0,
+                    color: Color(0xFF004A82),
+                  ),
+                  textAlign: TextAlign.center,
                 ),
-                  textAlign: TextAlign.center,),
-              ],),
+              ],
+            ),
 /*
 
 */
-
-
           ],
         ),
       ),
     );
   }
-
 
   List<PieChartSectionData> showingSections() {
     return List.generate(4, (i) {
@@ -415,7 +414,6 @@ class HomeState extends State<Home> {
 
 // ignore: must_be_immutable
 class Indicator extends StatelessWidget {
-
   Color color;
   String text;
 
@@ -425,16 +423,19 @@ class Indicator extends StatelessWidget {
   Widget build(BuildContext context) {
     // TODO: implement build
     return Material(
-      child: Row(children: [
-        Container(
-          height: 15,
-          width: 15,
-          color: color,
-        ),
-        SizedBox(width: 8,),
-        Text(text)
-      ],),
+      child: Row(
+        children: [
+          Container(
+            height: 15,
+            width: 15,
+            color: color,
+          ),
+          SizedBox(
+            width: 8,
+          ),
+          Text(text)
+        ],
+      ),
     );
   }
 }
-
