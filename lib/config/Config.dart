@@ -12,4 +12,5 @@ class Config {
   static String notifications = "notifications/";
   static String restricted_capabilities = "restricted-capabilities/";
   static String tokenURL = "https://www.korentic.com/wp-json/jwt-auth/v1/token";
+  static String token = "eyJ0eXAiOiJKV1QiLCJhbGciOiJIUzI1NiJ9.eyJpc3MiOiJodHRwczpcL1wva29yZW50aWMuY29tIiwiaWF0IjoxNjA5Njc0ODUwLCJuYmYiOjE2MDk2NzQ4NTAsImV4cCI6MTYxMDI3OTY1MCwiZGF0YSI6eyJ1c2VyIjp7ImlkIjoiMTMifX19.45WUjBaYxgEdB2AedwEbKI3hwkajKvRGYS_cewTQJY0";
 }

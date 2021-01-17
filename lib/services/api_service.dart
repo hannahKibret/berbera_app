@@ -17,9 +17,9 @@ class APIService {
     );
     bool ret = false;
     try {
-      var response = await Dio().post(Config.wp_URL + Config.userURL,
+      var response = await Dio().post('https://berberamarket.com/wp-json/api/flutter_user/register',
           //TODO: Pass user data here
-          //data: user.toJson(),
+          data:  user.toJSON(),
           options: new Options(headers: {
             HttpHeaders.authorizationHeader: 'Basic $authToken',
             HttpHeaders.contentTypeHeader: "application/json"
@@ -45,7 +45,7 @@ class APIService {
               HttpHeaders.contentTypeHeader:
                   "application/x-www-from-urlencoded",
               HttpHeaders.authorizationHeader:
-                  "Bearer eyJ0eXAiOiJKV1QiLCJhbGciOiJIUzI1NiJ9.eyJpc3MiOiJodHRwczpcL1wva29yZW50aWMuY29tIiwiaWF0IjoxNjA5Njc0ODUwLCJuYmYiOjE2MDk2NzQ4NTAsImV4cCI6MTYxMDI3OTY1MCwiZGF0YSI6eyJ1c2VyIjp7ImlkIjoiMTMifX19.45WUjBaYxgEdB2AedwEbKI3hwkajKvRGYS_cewTQJY0"
+                  "Bearer ${Config.token}"
             }));
         if (response.statusCode == 200) {
           Iterable l = json.decode(response.data);
@@ -61,7 +61,7 @@ class APIService {
               HttpHeaders.contentTypeHeader:
                   "application/x-www-from-urlencoded",
               HttpHeaders.authorizationHeader:
-                  "Bearer eyJ0eXAiOiJKV1QiLCJhbGciOiJIUzI1NiJ9.eyJpc3MiOiJodHRwczpcL1wva29yZW50aWMuY29tIiwiaWF0IjoxNjA5Njc0ODUwLCJuYmYiOjE2MDk2NzQ4NTAsImV4cCI6MTYxMDI3OTY1MCwiZGF0YSI6eyJ1c2VyIjp7ImlkIjoiMTMifX19.45WUjBaYxgEdB2AedwEbKI3hwkajKvRGYS_cewTQJY0"
+                  "Bearer ${Config.token}"
             }));
         if (response.statusCode == 200) {
           Iterable l = json.decode(response.data);
@@ -83,7 +83,7 @@ class APIService {
                   HttpHeaders.contentTypeHeader:
                       "application/x-www-from-urlencoded",
                   HttpHeaders.authorizationHeader:
-                      "Bearer eyJ0eXAiOiJKV1QiLCJhbGciOiJIUzI1NiJ9.eyJpc3MiOiJodHRwczpcL1wva29yZW50aWMuY29tIiwiaWF0IjoxNjA5Njc0ODUwLCJuYmYiOjE2MDk2NzQ4NTAsImV4cCI6MTYxMDI3OTY1MCwiZGF0YSI6eyJ1c2VyIjp7ImlkIjoiMTMifX19.45WUjBaYxgEdB2AedwEbKI3hwkajKvRGYS_cewTQJY0"
+                      "Bearer ${Config.token}"
                 }));
         if (response.statusCode == 200) {
           Product updated_product = new Product();
@@ -99,7 +99,7 @@ class APIService {
               HttpHeaders.contentTypeHeader:
                   "application/x-www-from-urlencoded",
               HttpHeaders.authorizationHeader:
-                  "Bearer eyJ0eXAiOiJKV1QiLCJhbGciOiJIUzI1NiJ9.eyJpc3MiOiJodHRwczpcL1wva29yZW50aWMuY29tIiwiaWF0IjoxNjA5Njc0ODUwLCJuYmYiOjE2MDk2NzQ4NTAsImV4cCI6MTYxMDI3OTY1MCwiZGF0YSI6eyJ1c2VyIjp7ImlkIjoiMTMifX19.45WUjBaYxgEdB2AedwEbKI3hwkajKvRGYS_cewTQJY0"
+                  "Bearer ${Config.token}"
             }));
         if (response.statusCode == 200) {
           Product updated_product = new Product();
@@ -116,7 +116,7 @@ class APIService {
           options: new Options(headers: {
             HttpHeaders.contentTypeHeader: "application/x-www-from-urlencoded",
             HttpHeaders.authorizationHeader:
-                "Bearer eyJ0eXAiOiJKV1QiLCJhbGciOiJIUzI1NiJ9.eyJpc3MiOiJodHRwczpcL1wva29yZW50aWMuY29tIiwiaWF0IjoxNjA5Njc0ODUwLCJuYmYiOjE2MDk2NzQ4NTAsImV4cCI6MTYxMDI3OTY1MCwiZGF0YSI6eyJ1c2VyIjp7ImlkIjoiMTMifX19.45WUjBaYxgEdB2AedwEbKI3hwkajKvRGYS_cewTQJY0"
+                "Bearer ${Config.token}"
           }));
       if (response.statusCode == 200) {
         Product deleted_product = new Product();
@@ -134,7 +134,7 @@ class APIService {
               HttpHeaders.contentTypeHeader:
                   "application/x-www-from-urlencoded",
               HttpHeaders.authorizationHeader:
-                  "Bearer eyJ0eXAiOiJKV1QiLCJhbGciOiJIUzI1NiJ9.eyJpc3MiOiJodHRwczpcL1wva29yZW50aWMuY29tIiwiaWF0IjoxNjA5Njc0ODUwLCJuYmYiOjE2MDk2NzQ4NTAsImV4cCI6MTYxMDI3OTY1MCwiZGF0YSI6eyJ1c2VyIjp7ImlkIjoiMTMifX19.45WUjBaYxgEdB2AedwEbKI3hwkajKvRGYS_cewTQJY0"
+                  "Bearer ${Config.token}"
             }));
         if (response.statusCode == 200) {
           Iterable l = json.decode(response.data);
@@ -150,7 +150,7 @@ class APIService {
               HttpHeaders.contentTypeHeader:
                   "application/x-www-from-urlencoded",
               HttpHeaders.authorizationHeader:
-                  "Bearer eyJ0eXAiOiJKV1QiLCJhbGciOiJIUzI1NiJ9.eyJpc3MiOiJodHRwczpcL1wva29yZW50aWMuY29tIiwiaWF0IjoxNjA5Njc0ODUwLCJuYmYiOjE2MDk2NzQ4NTAsImV4cCI6MTYxMDI3OTY1MCwiZGF0YSI6eyJ1c2VyIjp7ImlkIjoiMTMifX19.45WUjBaYxgEdB2AedwEbKI3hwkajKvRGYS_cewTQJY0"
+                  "Bearer ${Config.token}"
             }));
         if (response.statusCode == 200) {
           Iterable l = json.decode(response.data);
@@ -169,7 +169,7 @@ class APIService {
           options: new Options(headers: {
             HttpHeaders.contentTypeHeader: "application/x-www-from-urlencoded",
             HttpHeaders.authorizationHeader:
-                "Bearer eyJ0eXAiOiJKV1QiLCJhbGciOiJIUzI1NiJ9.eyJpc3MiOiJodHRwczpcL1wva29yZW50aWMuY29tIiwiaWF0IjoxNjA5Njc0ODUwLCJuYmYiOjE2MDk2NzQ4NTAsImV4cCI6MTYxMDI3OTY1MCwiZGF0YSI6eyJ1c2VyIjp7ImlkIjoiMTMifX19.45WUjBaYxgEdB2AedwEbKI3hwkajKvRGYS_cewTQJY0"
+                "Bearer ${Config.token}"
           }));
       if (response.statusCode == 200) {
         Order order = new Order();
@@ -187,7 +187,7 @@ class APIService {
               HttpHeaders.contentTypeHeader:
                   "application/x-www-from-urlencoded",
               HttpHeaders.authorizationHeader:
-                  "Bearer eyJ0eXAiOiJKV1QiLCJhbGciOiJIUzI1NiJ9.eyJpc3MiOiJodHRwczpcL1wva29yZW50aWMuY29tIiwiaWF0IjoxNjA5Njc0ODUwLCJuYmYiOjE2MDk2NzQ4NTAsImV4cCI6MTYxMDI3OTY1MCwiZGF0YSI6eyJ1c2VyIjp7ImlkIjoiMTMifX19.45WUjBaYxgEdB2AedwEbKI3hwkajKvRGYS_cewTQJY0"
+                  "Bearer ${Config.token}"
             }));
         if (response.statusCode == 200) {
           Iterable l = json.decode(response.data);
@@ -204,7 +204,7 @@ class APIService {
                   HttpHeaders.contentTypeHeader:
                       "application/x-www-from-urlencoded",
                   HttpHeaders.authorizationHeader:
-                      "Bearer eyJ0eXAiOiJKV1QiLCJhbGciOiJIUzI1NiJ9.eyJpc3MiOiJodHRwczpcL1wva29yZW50aWMuY29tIiwiaWF0IjoxNjA5Njc0ODUwLCJuYmYiOjE2MDk2NzQ4NTAsImV4cCI6MTYxMDI3OTY1MCwiZGF0YSI6eyJ1c2VyIjp7ImlkIjoiMTMifX19.45WUjBaYxgEdB2AedwEbKI3hwkajKvRGYS_cewTQJY0"
+                      "Bearer ${Config.token}"
                 }));
         if (response.statusCode == 200) {
           Iterable l = json.decode(response.data);

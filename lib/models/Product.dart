@@ -99,8 +99,6 @@ class Product_Attributes {
   }
   Map<String, dynamic> toJSON() {
     final Map<String, dynamic> json = new Map<String, dynamic>();
-
-    json['id'] = this.id;
     json['name'] = this.name;
     json['options'] = this.options;
     return json;
@@ -108,19 +106,16 @@ class Product_Attributes {
 }
 
 class Product_ImageURL {
-  String id;
   String src_url;
 
-  Product_ImageURL({this.id, this.src_url});
+  Product_ImageURL({ this.src_url});
 
   Product_ImageURL.fromJSON(Map<String, dynamic> json) {
-    id = json['id'];
     src_url = json['src'];
   }
 
   Map<String, dynamic> toJSON() {
     final Map<String, dynamic> json = new Map<String, dynamic>();
-    json['id'] = this.id;
     json['src'] = this.src_url;
     return json;
   }
