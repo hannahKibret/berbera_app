@@ -2,7 +2,7 @@ import 'package:berbera_app/pages/inventory_home.dart';
 import 'package:berbera_app/pages/profile_page.dart';
 import 'package:flutter/material.dart';
 import 'package:bubble_bottom_bar/bubble_bottom_bar.dart';
-import 'dash_board.dart';
+import 'home.dart';
 
 class HomePage extends StatefulWidget {
   @override

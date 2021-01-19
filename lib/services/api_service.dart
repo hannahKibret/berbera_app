@@ -11,17 +11,20 @@ import 'package:berbera_app/models/login_model.dart';
 import 'package:dio/dio.dart';
 
 class APIService {
+
+  var authToken = base64.encode(
+    utf8.encode(Config.key + ":" + Config.secrete),
+  );
+
   Future<bool> createUser(User user) async {
-    var authToken = base64.encode(
-      utf8.encode(Config.key + ":" + Config.secrete),
-    );
+
     bool ret = false;
     try {
       var response = await Dio().post('https://berberamarket.com/wp-json/api/flutter_user/register',
           //TODO: Pass user data here
           data:  user.toJSON(),
           options: new Options(headers: {
-            HttpHeaders.authorizationHeader: 'Basic $authToken',
+          //  HttpHeaders.authorizationHeader: 'Basic $authToken',
             HttpHeaders.contentTypeHeader: "application/json"
           }));
       if (response.statusCode == 201) {
@@ -36,6 +39,25 @@ class APIService {
     }
     return ret;
   }
+
+
+  Future<User> editUser(String id, User user) async{
+    try{
+      var response = await Dio().post(Config.wp_URL + Config.userURL + id,
+          data: user.toJSON(),
+      options: new Options(headers: {
+        HttpHeaders.contentTypeHeader:
+        "application/x-www-from-urlencoded",
+        HttpHeaders.authorizationHeader: 'Basic $authToken',
+      }));
+
+      return User.fromJSON(response.data);
+
+    }catch (e){
+
+    }
+  }
+
 
   Future<List<Product>> getProducts(String id) async {
     if (id == null) {
