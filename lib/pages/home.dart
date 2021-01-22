@@ -20,43 +20,31 @@ class Home extends StatefulWidget{
         children: [
           Container(
         margin: EdgeInsets.all(10),
-        height: 100.0,
+
             decoration: BoxDecoration(
               borderRadius: BorderRadius.circular(20.0),
               color: Colors.grey,
             ),
         child: Stack(
           children: <Widget>[
-            Pinned.fromSize(
-              bounds: Rect.fromLTWH(0.0, 0.0, 365.0, 100.0),
-              size: Size(365.0, 100.0),
-              pinLeft: true,
-              pinRight: true,
-              pinTop: true,
-              pinBottom: true,
-              //child: Component11(),
-            ),
-            Pinned.fromSize(
-              bounds: Rect.fromLTWH(127.0, 23.0, 111.0, 27.0),
-              size: Size(365.0, 100.0),
-              fixedWidth: true,
-              fixedHeight: true,
-              child: Text(
-                'Store Name',
-                style: TextStyle(
-                  fontFamily: 'Segoe UI',
-                  fontSize: 20,
-                  color: const Color(0xff000000),
-                  fontWeight: FontWeight.w700,
+
+         Container(
+           child: Text(
+                  'Store Name',
+                  style: TextStyle(
+                    fontFamily: 'Segoe UI',
+                    fontSize: 20,
+                    color: const Color(0xff000000),
+                    fontWeight: FontWeight.w700,
+                  ),
+                  textAlign: TextAlign.left,
                 ),
-                textAlign: TextAlign.left,
-              ),
-            ),
-            Pinned.fromSize(
-              bounds: Rect.fromLTWH(127.0, 50.0, 173.0, 27.0),
-              size: Size(365.0, 100.0),
-              fixedWidth: true,
-              fixedHeight: true,
+           alignment: Alignment.center,
+margin: EdgeInsets.only(top: 15),
+         ),
+            Container(
+              alignment: Alignment.center,
+              margin: EdgeInsets.only(top: 40) ,
               child: Text(
                 '2 processing orders',
                 style: TextStyle(
@@ -67,15 +55,12 @@ class Home extends StatefulWidget{
                 textAlign: TextAlign.left,
               ),
             ),
-            Pinned.fromSize(
-              bounds: Rect.fromLTWH(22.0, 10.0, 80.0, 80.0),
-              size: Size(365.0, 100.0),
-              pinLeft: true,
-              pinTop: true,
-              pinBottom: true,
-              fixedWidth: true,
+            Container(
+              alignment: Alignment.centerLeft,
+              margin: EdgeInsets.all( 12),
               child: CircleAvatar(
-
+                maxRadius: 30,
+                minRadius: 25,
               ),
             ),
           ],
@@ -83,7 +68,7 @@ class Home extends StatefulWidget{
       ),
 
           Container(
-            height: 160,
+            height: 125,
             margin: EdgeInsets.all(10),
             decoration: BoxDecoration(
               borderRadius: BorderRadius.circular(20.0),
@@ -137,7 +122,7 @@ margin: EdgeInsets.only(left: 15, top: 45),
       ),
 
           Container(
-            height: 160,
+            height: 125,
             margin: EdgeInsets.all(10),
             decoration: BoxDecoration(
               borderRadius: BorderRadius.circular(20.0),

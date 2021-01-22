@@ -11,7 +11,7 @@ class User{
   String display_name;
   String phone;
 
-  User(
+  User({
       this.role,
       this.user_email,
       this.user_login,
@@ -22,7 +22,7 @@ class User{
       this.email,
       this.user_nicename,
       this.display_name,
-      this.phone);
+      this.phone});
 
   User.fromJSON(Map<String, dynamic> json){
     role = json['role'];

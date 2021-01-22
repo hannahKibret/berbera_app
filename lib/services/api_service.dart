@@ -27,7 +27,7 @@ class APIService {
           //  HttpHeaders.authorizationHeader: 'Basic $authToken',
             HttpHeaders.contentTypeHeader: "application/json"
           }));
-      if (response.statusCode == 201) {
+      if (response.statusCode == 200) {
         ret = true;
       }
     } on DioError catch (e) {
@@ -212,16 +212,20 @@ class APIService {
                   "Bearer ${Config.token}"
             }));
         if (response.statusCode == 200) {
-          Iterable l = json.decode(response.data);
-          List<Notification> Notifications = List<Notification>.from(
-              l.map((model) => Notification.fromJSON(model)));
+          List<Notification> Notifications = [];
+          for(int i = 0; i < response.data.length; i++){
+            Notifications.add(Notification.fromJSON(response.data[i]));
+          }
           return Notifications;
         }
+
+
+
       } on DioError catch (e) {}
     } else {
       try {
         var response =
-            await Dio().get(Config.wcfmURL + Config.notifications + id,
+            await Dio().delete(Config.wcfmURL + Config.notifications + id,
                 options: new Options(headers: {
                   HttpHeaders.contentTypeHeader:
                       "application/x-www-from-urlencoded",
@@ -229,9 +233,20 @@ class APIService {
                       "Bearer ${Config.token}"
                 }));
         if (response.statusCode == 200) {
-          Iterable l = json.decode(response.data);
-          List<Notification> notifications = List<Notification>.from(
-              l.map((model) => Notification.fromJSON(model)));
+          List<Notification> notifications = [];
+          var k = [];
+
+          for(int i = 0; i< response.data.length; i++){
+            k.add(json.decode(response.data[i]));
+
+
+          }
+          for(int j = 0; j < k.length; j++){
+            notifications.add(Notification.fromJSON(k[j]));
+          }
+
+          print(notifications);
+
           return notifications;
         }
       } on DioError catch (e) {}
@@ -252,6 +267,9 @@ class APIService {
       if (response.statusCode == 200) {
         LoginResponseModel user = new LoginResponseModel();
         Vendor user_data = Vendor.fromJson(response.data);
+        Config.token = user_data.token;
+        Config.displayname = user_data.display_name;
+        Config.email = user_data.email;
         // print(user_data.token);
         user.data = user_data;
         user.statusCode = response.statusCode;

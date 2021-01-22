@@ -3,6 +3,7 @@ import 'package:berbera_app/pages/profile_page.dart';
 import 'package:flutter/material.dart';
 import 'package:bubble_bottom_bar/bubble_bottom_bar.dart';
 import 'home.dart';
+import 'notification_page.dart';
 
 class HomePage extends StatefulWidget {
   @override
@@ -38,6 +39,21 @@ class _HomePageState extends State<HomePage> {
           appBar: AppBar(
             //title: Text('Bottom Navigation Bar'),
             centerTitle: true,
+            actions: <Widget>[
+              IconButton(
+                  icon: Icon(Icons.notifications),
+                  onPressed: (){
+                    Navigator.push(
+                      context,
+                      MaterialPageRoute(
+                        builder: (context) => NotificationPage(),
+                        settings: RouteSettings(arguments: ''),
+                      ),
+                    );
+
+                  }
+              )
+            ],
           ),
           bottomNavigationBar: BubbleBottomBar(
             opacity: 0.2,

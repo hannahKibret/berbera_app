@@ -142,7 +142,6 @@ class _SignInPageState extends State<SignInPage> {
                                         color: Theme.of(context).primaryColor)),
                                 onPressed: () {
                                   //TODO: login Action
-/*
                                   setState(() {
                                     isApiProcess = true;
                                   });
@@ -150,10 +149,10 @@ class _SignInPageState extends State<SignInPage> {
                                   apiService
                                       .loginUser(username, password)
                                       .then((user) {
-                                    print(username + password);
+                                  //  print(username + password);
                                     //  print(model.code);
                                     if (user != null) {
-                                      print(user.data.toJson());
+                                     // print(user.data.toJson());
 
                                       return showDialog(
                                         context: context,
@@ -197,16 +196,16 @@ class _SignInPageState extends State<SignInPage> {
                                         ),
                                       );
                                     }
-                                  }); */
+                                  });
 
-                                    Navigator.of(context).pop();
+                                 /*   Navigator.of(context).pop();
                                 Navigator.push(
                                   context,
                                   MaterialPageRoute(
                                     builder: (context) => HomePage(),
                                     settings: RouteSettings(arguments: ''),
                                   ),
-                                );
+                                );*/
                                 },
                                 textColor: Colors.white,
                                 color: Theme.of(context).primaryColor,
