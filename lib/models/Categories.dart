@@ -6,10 +6,12 @@ class Categories {
   String slug;
   String parent;
   String description;
-  Product_ImageURL image;
+ // Product_ImageURL image;
 
   Categories(
-      this.id, this.name, this.slug, this.parent, this.description, this.image);
+      this.id, this.name, this.slug, this.parent, this.description,
+     // this.image
+      );
 
   Categories.fromJSON(Map<String, dynamic> json) {
     id = json['id'];
@@ -17,7 +19,7 @@ class Categories {
     slug = json['slug'];
     parent = json['parent'];
     description = json['description'];
-    image = Product_ImageURL.fromJSON(json['image']);
+   // image = Product_ImageURL.fromJSON(json['image']);
   }
 
   Map<String, dynamic> toJSON() {
@@ -28,7 +30,7 @@ class Categories {
     json['slug'] = this.slug;
     json['parent'] = this.parent;
     json['description'] = this.description;
-    json['image'] = this.image.toJSON();
+  //  json['image'] = this.image.toJSON();
 
     return json;
   }

@@ -1,195 +1,142 @@
+
+import 'package:berbera_app/config/general.dart';
+
+import 'address.dart';
+
 class Order {
   String id;
+  String number;
   String status;
-  String currency;
-  String version;
-  String prices_include_tax;
-  String date_created;
-  String date_modified;
-  String discount_total;
-  String discount_tax;
-  String shipping_total;
-  String shipping_tax;
-  String total;
-  String total_tax;
-  String customer_id;
-  String order_key;
-  OrderMetaData meta_data;
-  OrderItem line_items;
+  DateTime createdAt;
+  DateTime dateModified;
+  double total;
+  double totalTax;
+  String paymentMethodTitle;
+  String shippingMethodTitle;
+  String customerNote;
+  List<ProductItem> lineItems = [];
+  Address billing;
+  Address shipping;
+  String statusUrl;
+  double subtotal;
+  int quantity = 0;
 
-  Order({
-    this.id,
-    this.status,
-    this.currency,
-    this.version,
-    this.prices_include_tax,
-    this.date_created,
-    this.date_modified,
-    this.discount_total,
-    this.discount_tax,
-    this.shipping_total,
-    this.shipping_tax,
-    this.total,
-    this.total_tax,
-    this.customer_id,
-    this.order_key,
-    this.meta_data,
-    this.line_items,
-  });
+  Order({this.id, this.number, this.status, this.createdAt, this.total});
 
-  Order.fromJSON(Map<String, dynamic> json) {
-    id = json['id'];
-    status = json['status'];
-    currency = json['currency'];
-    version = json['version'];
-    prices_include_tax = json['prices_include_tax'];
-    date_created = json['date_created'];
-    date_modified = json['date_modified'];
-    discount_total = json['discount_total'];
-    discount_tax = json['discount_tax'];
-    shipping_total = json['shipping_total'];
-    shipping_tax = json['shipping_tax'];
-    total = json['total'];
-    total_tax = json['total_tax'];
-    customer_id = json['customer_id'];
-    order_key = json['order_key'];
-    meta_data = OrderMetaData.fromJSON(json['meta_data']);
-    line_items = OrderItem.fromJSON(json['line_items']);
+  Order.fromJson(Map<String, dynamic> parsedJson) {
+    try {
+      id = parsedJson["id"].toString();
+      customerNote = parsedJson["customer_note"];
+      number = parsedJson["number"];
+      status = parsedJson["status"];
+      createdAt = parsedJson["date_created"] != null
+          ? DateTime.parse(parsedJson["date_created"])
+          : DateTime.now();
+      dateModified = parsedJson["date_modified"] != null
+          ? DateTime.parse(parsedJson["date_modified"])
+          : DateTime.now();
+      total =
+      parsedJson["total"] != null ? double.parse(parsedJson["total"]) : 0.0;
+      totalTax = parsedJson["total_tax"] != null
+          ? double.parse(parsedJson["total_tax"])
+          : 0.0;
+      paymentMethodTitle = parsedJson["payment_method_title"];
+
+      parsedJson["line_items"]?.forEach((item) {
+        lineItems.add(ProductItem.fromJson(item));
+        quantity += int.parse("${item["quantity"]}");
+      });
+
+      billing = Address.fromJson(parsedJson["billing"]);
+      shipping = Address.fromJson(parsedJson["shipping"]);
+      shippingMethodTitle = parsedJson["shipping_lines"] != null &&
+          parsedJson["shipping_lines"].length > 0
+          ? parsedJson["shipping_lines"][0]["method_title"]
+          : null;
+    } catch (e, trace) {
+      printLog(e.toString());
+      printLog(trace.toString());
+    }
   }
 
-  Map<String, dynamic> toJSON() {
-    final Map<String, dynamic> json = new Map<String, dynamic>();
 
-    json['id'] = this.id;
-    json['status'] = this.status;
-    json['currency'] = this.currency;
-    json['version'] = this.version;
-    json['prices_include_tax'] = this.prices_include_tax;
-    json['date_created'] = this.date_created;
-    json['date_modified'] = this.date_modified;
-    json['discount_total'] = this.discount_total;
-    json['discount_tax'] = this.discount_tax;
-    json['shipping_total'] = this.shipping_total;
-    json['shipping_tax'] = this.shipping_tax;
-    json['total'] = this.total;
-    json['total_tax'] = this.total_tax;
-    json['customer_id'] = this.customer_id;
-    json['order_key'] = this.order_key;
-    json['meta_data'] = this.meta_data.toJSON;
-    json['line_items'] = this.line_items.toJSON;
+  Map<String, dynamic> toOrderJson( userId) {
+    var items = lineItems.map((index) {
+      return index.toJson();
+    }).toList();
 
-    return json;
+    return {
+      "status": status,
+      "total": total.toString(),
+      "shipping_lines": [
+        {"method_title": shippingMethodTitle}
+      ],
+      "number": number,
+      "billing": billing,
+      "line_items": items,
+      "id": id,
+      "date_created": createdAt.toString(),
+      "payment_method_title": paymentMethodTitle
+    };
   }
+
+  Map<String, dynamic> toJson(userId, status) {
+  return {
+    "status": status,
+  };
+  }
+
+  @override
+  String toString() => 'Order { id: $id  number: $number}';
 }
 
-class OrderMetaData {
-  /*
-
-  {
-                "id": 6958,
-                "key": "is_vat_exempt",
-                "value": "no"
-            },
-            {
-                "id": 6959,
-                "key": "_wcfmmp_user_location",
-                "value": "Kotebe, Yeka, Addis Ababa, 4343, Ethiopia"
-            },
-            {
-                "id": 6960,
-                "key": "_wcfmmp_user_location_lat",
-                "value": "9.0371282"
-            },
-            {
-                "id": 6961,
-                "key": "_wcfmmp_user_location_lng",
-                "value": "38.8398518"
-            },
-            {
-                "id": 6962,
-                "key": "_wcfmmp_order_processed",
-                "value": "yes"
-            },
-            {
-                "id": 6967,
-                "key": "_wcfm_new_order_notified",
-                "value": "yes"
-            },
-            {
-                "id": 6968,
-                "key": "_wcfm_membership_order_processed",
-                "value": "yes"
-            },
-            {
-                "id": 6969,
-                "key": "_wcfmmp_order_email_triggered",
-                "value": "yes"
-            }
-
-   */
-  OrderMetaData.fromJSON(Map<String, dynamic> json) {}
-
-  Map<String, dynamic> toJSON() {
-    final Map<String, dynamic> json = new Map<String, dynamic>();
-
-    return json;
-  }
-}
-
-class OrderItem {
-  String id;
+class ProductItem {
+  String productId;
   String name;
-  String product_id;
-  String variation_id;
-  String quantity;
-  String tax_class;
-  String subtotal;
-  String subtotal_tax;
+  int quantity;
   String total;
-  String total_tax;
-  String taxes;
+  String featuredImage;
+  String addonsOptions;
+  String  variationid;
 
-  OrderItem(
-      {this.id,
-      this.name,
-      this.product_id,
-      this.variation_id,
-      this.quantity,
-      this.tax_class,
-      this.subtotal,
-      this.subtotal_tax,
-      this.total,
-      this.total_tax,
-      this.taxes});
+  ProductItem.fromJson(Map<String, dynamic> parsedJson) {
+    try {
+      productId = parsedJson["product_id"].toString();
+      variationid = parsedJson["variation_id"];
+      name = parsedJson["name"];
+      quantity = int.parse("${parsedJson["quantity"]}");
+      total = parsedJson["total"];
+      featuredImage = parsedJson['featured_image'];
+      if (parsedJson['featured_image'] != null) {
+        featuredImage = parsedJson['featured_image'];
+      }
+      if (parsedJson['product_data'] != null) {
+        if (parsedJson['product_data']['images'] != null &&
+            parsedJson['product_data']['images'].isNotEmpty) {
+          featuredImage = parsedJson['product_data']['images'][0]['src'];
+        }
+      }
 
-  OrderItem.fromJSON(Map<String, dynamic> json) {
-    id = json['id'];
-    name = json['name'];
-    product_id = json['product_id'];
-    variation_id = json['variant_id'];
-    quantity = json['quantity'];
-    tax_class = json['tax_class'];
-    subtotal = json['subtotal'];
-    subtotal_tax = json['subtotal_tax'];
-    total = json['total'];
-    total_tax = json['total_tax'];
-    taxes = json['taxes'];
+      final metaData = parsedJson['meta_data'];
+      if (metaData is List) {
+        addonsOptions = metaData.map((e) => e['value']).join(', ');
+      }
+    } catch (e, trace) {
+      printLog(e.toString());
+      printLog(trace.toString());
+    }
   }
 
-  Map<String, dynamic> toJSON() {
-    final Map<String, dynamic> json = new Map<String, dynamic>();
 
-    json['id'] = this.id;
-    json['name'] = this.name;
-    json['product_id'] = this.product_id;
-    json['variant_id'] = this.variation_id;
-    json['tax_class'] = this.tax_class;
-    json['subtotal'] = this.subtotal;
-    json['subtotal_tax'] = this.subtotal_tax;
-    json['total'] = this.total;
-    json['total_tax'] = this.total_tax;
-    json['taxes'] = this.taxes;
 
-    return json;
+  Map<String, dynamic> toJson() {
+    return {
+      "product_id": productId,
+      "variation_id": variationid,
+      "name": name,
+      "quantity": quantity,
+      "total": total
+    };
   }
+
 }

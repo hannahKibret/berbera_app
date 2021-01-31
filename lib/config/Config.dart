@@ -1,6 +1,7 @@
 class Config {
   static String key = "ck_f55dab1236058926dac85af3fd4c5e525a4483b9";
   static String secrete = "cs_86df0bc2bc8d60f549f453c1c489efeb7d4536c6";
+  static String url = "https://berberamarket.com/";
   static String wp_URL = "https://berberamarket.com/wp-json/wc/v3/";
   static String userURL = "customers";
   static String wcfmURL = "https://berberamarket.com/wp-json/wcfmmp/v1/";
@@ -16,4 +17,6 @@ class Config {
   static String token;
   static String displayname;
   static String email;
+  static String kDefaultImage =
+      "https://trello-attachments.s3.amazonaws.com/5d64f19a7cd71013a9a418cf/640x480/1dfc14f78ab0dbb3de0e62ae7ebded0c/placeholder.jpg";
 }

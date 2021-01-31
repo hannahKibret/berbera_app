@@ -1,14 +1,25 @@
+import 'package:berbera_app/models/product.dart';
 import 'package:flutter/material.dart';
 import 'package:berbera_app/models/item.dart';
 
 import 'inventory_add.dart';
 
 class InventoryView extends StatefulWidget {
+
+  Product product;
+
+  InventoryView({this.product});
+
   @override
-  _InventoryViewState createState() => _InventoryViewState();
+  _InventoryViewState createState() => _InventoryViewState(product);
 }
 
 class _InventoryViewState extends State<InventoryView> {
+  Product product;
+
+
+  _InventoryViewState(this.product);
+
   Item item1 = Item();
   Item item2 = Item();
   List<Item> items = loadItem();
@@ -73,13 +84,7 @@ class _InventoryViewState extends State<InventoryView> {
                               context,
                               MaterialPageRoute(
                                 builder: (context) => InventoryAdd(
-                                    itemName: items[index].itemName,
-                                    brandName: items[index].brandName,
-                                    category: items[index].category,
-                                    price: items[index].price,
-                                    qty: items[index].qty,
-                                    itemDetail: items[index].detail,
-                                    image: null),
+                                   product: product),
                                 settings: RouteSettings(arguments: ''),
                               ),
                             );
@@ -174,14 +179,7 @@ class ItemSearch extends SearchDelegate<Item> {
                                 Navigator.push(
                                   context,
                                   MaterialPageRoute(
-                                    builder: (context) => InventoryAdd(
-                                        itemName: item.itemName,
-                                        brandName: item.brandName,
-                                        category: item.category,
-                                        price: item.price,
-                                        qty: item.qty,
-                                        itemDetail: item.detail,
-                                        image: null),
+                                    builder: (context) => InventoryAdd(),
                                     settings: RouteSettings(arguments: ''),
                                   ),
                                 );

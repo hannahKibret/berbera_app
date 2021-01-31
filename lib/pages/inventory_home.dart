@@ -40,14 +40,7 @@ class InventoryHome extends StatelessWidget {
                 context,
                 MaterialPageRoute(
                   builder: (context) => InventoryAdd(
-                      itemName: '',
-                      brandName: '',
-                      category: '',
-                      price: 0,
-                      qty: 0,
-                      itemDetail: '',
-                      image: null),
-                  settings: RouteSettings(arguments: ''),
+                      ),
                 ),
               );
             }),
@@ -65,7 +58,7 @@ class InventoryHome extends StatelessWidget {
                 ),
                 SizedBox(height: 20.0),
                 Text(
-                  'View',
+                  'All Products',
                   style: TextStyle(
                     fontWeight: FontWeight.bold,
                     fontSize: 20.0,

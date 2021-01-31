@@ -1,12 +1,15 @@
-import 'dart:convert';
-import 'dart:io';
 
+import 'dart:convert';
+import 'dart:core';
+import 'dart:io';
 import 'package:berbera_app/config/Config.dart';
+import 'package:berbera_app/config/general.dart';
 import 'package:berbera_app/models/Notification.dart';
 import 'package:berbera_app/models/Order.dart';
 import 'package:berbera_app/models/Product.dart';
 import 'package:berbera_app/models/User.dart';
 import 'package:berbera_app/models/Vendor.dart';
+import 'package:berbera_app/models/category.dart';
 import 'package:berbera_app/models/login_model.dart';
 import 'package:dio/dio.dart';
 
@@ -15,6 +18,28 @@ class APIService {
   var authToken = base64.encode(
     utf8.encode(Config.key + ":" + Config.secrete),
   );
+
+  Future<List<Category>> getcategories() async{
+try{
+  List<Category> _categories =[];
+  var response = await Dio().get(Config.wp_URL + Config.categories,
+      options: new Options(headers: {
+        HttpHeaders.contentTypeHeader:
+        "application/x-www-from-urlencoded",
+        HttpHeaders.authorizationHeader:
+        "Bearer ${Config.token}"
+      }));
+  if (response.statusCode == 200) {
+    for(int i = 0; i < response.data.length; i++){
+      _categories.add(Category.fromJson(response.data[i]));
+    }
+    printLog("cate return");
+    return  _categories;
+  }
+}catch(e){
+print(e.toString());
+}
+  }
 
   Future<bool> createUser(User user) async {
 
@@ -100,7 +125,7 @@ class APIService {
       try {
         var response =
             await Dio().put(Config.wcfmURL + Config.products + product.id,
-                data: product.toJSON(),
+                data: product.toJson(),
                 options: new Options(headers: {
                   HttpHeaders.contentTypeHeader:
                       "application/x-www-from-urlencoded",
@@ -109,14 +134,14 @@ class APIService {
                 }));
         if (response.statusCode == 200) {
           Product updated_product = new Product();
-          updated_product = Product.fromJSON(response.data);
+          updated_product = Product.fromJson(response.data);
           return updated_product;
         }
       } on DioError catch (e) {}
     } else {
       try {
         var response = await Dio().post(Config.wcfmURL + Config.products,
-            data: product.toJSON(),
+            data: product.toJson(),
             options: new Options(headers: {
               HttpHeaders.contentTypeHeader:
                   "application/x-www-from-urlencoded",
@@ -125,7 +150,7 @@ class APIService {
             }));
         if (response.statusCode == 200) {
           Product updated_product = new Product();
-          updated_product = Product.fromJSON(response.data);
+          updated_product = Product.fromJson(response.data);
           return updated_product;
         }
       } on DioError catch (e) {}
@@ -142,7 +167,7 @@ class APIService {
           }));
       if (response.statusCode == 200) {
         Product deleted_product = new Product();
-        deleted_product = Product.fromJSON(response.data);
+        deleted_product =  Product.fromJson(response.data);
         return deleted_product;
       }
     } on DioError catch (e) {}
@@ -195,7 +220,7 @@ class APIService {
           }));
       if (response.statusCode == 200) {
         Order order = new Order();
-        order = Order.fromJSON(response.data);
+        order = Order.fromJson(response.data);
         return order;
       }
     } on DioError catch (e) {}
