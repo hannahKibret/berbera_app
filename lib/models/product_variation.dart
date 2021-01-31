@@ -1,6 +1,5 @@
-import 'package:berbera_app/config/Config.dart';
+
 import 'package:berbera_app/config/general.dart';
-import 'product.dart';
 import 'product_attribute.dart';
 
 class ProductVariation {
@@ -41,53 +40,6 @@ class ProductVariation {
     attributes = attributeList;
   }
 
-  ProductVariation.fromMagentoJson(
-      Map<String, dynamic> parsedJson, Product product) {
-    var getCustomAttribute = (customAttributes, attribute) {
-      String value;
-      if (customAttributes != null && customAttributes.length > 0) {
-        for (var item in customAttributes) {
-          if (item["attribute_code"] == attribute) {
-            value = item["value"];
-            break;
-          }
-        }
-      }
-      return value;
-    };
-
-    var getProductImageUrlByName = (domain, imageName) {
-      return "$domain/pub/media/catalog/product/$imageName";
-    };
-
-    id = parsedJson["id"].toString();
-    sku = parsedJson["sku"];
-    price = parsedJson["price"].toString();
-    regularPrice = parsedJson["price"].toString();
-    salePrice = parsedJson["price"].toString();
-    onSale = false;
-    inStock = parsedJson["status"] == 1;
-
-    final imageUrl =
-        getCustomAttribute(parsedJson["custom_attributes"], "image");
-    imageFeature = imageUrl != null
-        ? getProductImageUrlByName(Config.url, imageUrl)
-        : product.imageFeature;
-
-    List<Attribute> attributeList = [];
-    List attributesConfig =
-        kAdvanceConfig["EnableAttributesConfigurableProduct"];
-    attributesConfig.forEach((element) {
-      final item = getCustomAttribute(parsedJson["custom_attributes"], element);
-      if (item != null) {
-        final attribute = Attribute.fromMagentoJson(
-            {"value": item, "attribute_code": element});
-        attributeList.add(attribute);
-        attributeMap[attribute.name] = attribute;
-      }
-    });
-    attributes = attributeList;
-  }
 
   Map<String, dynamic> toJson() {
     return {
@@ -137,56 +89,6 @@ class ProductVariation {
     }
   }
 
-  ProductVariation.fromShopifyJson(Map<String, dynamic> parsedJson) {
-    var priceV2 = parsedJson['priceV2'];
-    var compareAtPriceV2 = parsedJson['compareAtPriceV2'];
-    var compareAtPrice =
-        compareAtPriceV2 != null ? compareAtPriceV2['amount'] : null;
-
-    id = parsedJson["id"];
-    price = priceV2 != null ? priceV2['amount'] : null;
-    regularPrice = compareAtPrice ?? price;
-    onSale = compareAtPrice != null && compareAtPrice != price;
-    inStock = parsedJson['availableForSale'];
-    salePrice = compareAtPrice;
-    imageFeature = parsedJson["image"]["src"];
-
-    List<Attribute> attributeList = [];
-    parsedJson["selectedOptions"]?.forEach((item) {
-      final Attribute attribute = Attribute.fromShopifyJson(item);
-      attributeList.add(attribute);
-      attributeMap[attribute.name] = attribute;
-    });
-    attributes = attributeList;
-  }
-
-  ProductVariation.fromPrestaJson(Map<String, dynamic> json) {
-    id = json["id"].toString();
-    regularPrice =
-        (double.parse((json["price"] ?? 0.0).toString())).toStringAsFixed(2);
-    salePrice = (double.parse((json["wholesale_price"] ?? 0.0).toString()))
-        .toStringAsFixed(2);
-    price = (double.parse((json["wholesale_price"] ?? 0.0).toString()))
-        .toStringAsFixed(2);
-    if (salePrice != regularPrice) {
-      onSale = true;
-    } else {
-      onSale = false;
-    }
-    stockQuantity =
-        json["quantity"].isNotEmpty ? int.parse(json["quantity"]) : 0;
-    if (stockQuantity > 0) {
-      inStock = true;
-    } else {
-      inStock = false;
-    }
-    imageFeature = json['image'];
-    List<Attribute> attributeList = [];
-    json["attributes"]?.forEach((item) {
-      attributeList.add(Attribute.fromPrestaJson(item));
-    });
-    attributes = attributeList;
-  }
 
   /// Get product ID from mix String productID-ProductVariantID
   static String cleanProductVariantID(productString) {

@@ -16,11 +16,6 @@ class ProductAttribute {
     options = parsedJson["options"];
   }
 
-  ProductAttribute.fromMagentoJson(Map<String, dynamic> parsedJson) {
-    id = "${parsedJson["attribute_id"]}";
-    name = parsedJson["attribute_code"];
-    options = parsedJson["options"];
-  }
 
   Map<String, dynamic> toJson() {
     return {"id": id, "name": name, "options": options};
@@ -36,25 +31,7 @@ class ProductAttribute {
     }
   }
 
-  ProductAttribute.fromShopify(att) {
-    try {
-      id = att['id'];
-      name = att['name'];
-      options = att['values'];
-    } catch (e) {
-      printLog(e.toString());
-    }
-  }
 
-  ProductAttribute.fromPresta(att) {
-    try {
-      id = att['id'].toString();
-      name = att['name'];
-      options = att['options'];
-    } catch (e) {
-      printLog(e.toString());
-    }
-  }
 }
 
 class Attribute {
@@ -70,11 +47,7 @@ class Attribute {
     option = parsedJson["option"];
   }
 
-  Attribute.fromMagentoJson(Map<String, dynamic> parsedJson) {
-    id = int.parse(parsedJson["value"]);
-    name = parsedJson["attribute_code"];
-    option = parsedJson["value"];
-  }
+
 
   Attribute.fromLocalJson(Map<String, dynamic> parsedJson) {
     id = parsedJson["id"];
@@ -82,17 +55,6 @@ class Attribute {
     option = parsedJson["option"];
   }
 
-  Attribute.fromShopifyJson(Map<String, dynamic> parsedJson) {
-    id = parsedJson["id"];
-    name = parsedJson["name"];
-    option = parsedJson["value"];
-  }
-
-  Attribute.fromPrestaJson(Map<String, dynamic> parsedJson) {
-    id = parsedJson["id"];
-    name = parsedJson["name"];
-    option = parsedJson["option"];
-  }
 
   Map<String, dynamic> toJson() {
     return {"id": id, "name": name, "option": option};

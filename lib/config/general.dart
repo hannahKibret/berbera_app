@@ -1,11 +1,9 @@
-import 'dart:html';
 
-import 'package:email_validator/email_validator.dart';
-import 'package:event_bus/event_bus.dart';
+import 'package:berbera_app/models/product_attribute.dart';
 import 'package:flutter/foundation.dart';
 import 'package:flutter/material.dart';
 import 'package:image_picker/image_picker.dart';
-import 'package:universal_platform/universal_platform.dart';
+import 'package:berbera_app/services/api_service.dart';
 
   const kLOG_TAG = "[Berbera]";
   const kLOG_ENABLE = true;
@@ -36,4 +34,36 @@ const List<DropdownMenuItem<dynamic>> product_status = [DropdownMenuItem(child: 
 Future getImage() async {
   var image = await ImagePicker.pickImage(source: ImageSource.camera);
  return image;
+}
+
+List<Widget> getAttributeWidget(String id){
+  APIService apiService;
+  apiService = new APIService();
+  List<Widget> _widgets = [];
+  try{
+    apiService.getAttribute(id).then((value) {
+      List<Attribute> _attributes = value;
+      for(int i=0; i< _attributes.length; i++){
+        _widgets.add( Row(
+          children: [
+            Checkbox(value: true, onChanged: null),
+            Text(_attributes[i].name),
+          ],
+        ));
+      }
+    });
+    return _widgets;
+  }catch(e){
+printLog(e.toString());
+  }
+
+}
+
+Widget getVariationWidget( color, size){
+  return Row(
+    children: [
+      DropdownButtonFormField(items: color, onChanged: null),
+      DropdownButtonFormField(items: size, onChanged: null)
+    ],
+  );
 }

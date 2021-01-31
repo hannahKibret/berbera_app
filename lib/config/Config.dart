@@ -3,6 +3,7 @@ class Config {
   static String secrete = "cs_86df0bc2bc8d60f549f453c1c489efeb7d4536c6";
   static String url = "https://berberamarket.com/";
   static String wp_URL = "https://berberamarket.com/wp-json/wc/v3/";
+  static String attributes = "products/attributes/";
   static String userURL = "customers";
   static String wcfmURL = "https://berberamarket.com/wp-json/wcfmmp/v1/";
   static String orders = "orders/";

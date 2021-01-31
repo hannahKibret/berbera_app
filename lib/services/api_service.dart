@@ -11,6 +11,7 @@ import 'package:berbera_app/models/User.dart';
 import 'package:berbera_app/models/Vendor.dart';
 import 'package:berbera_app/models/category.dart';
 import 'package:berbera_app/models/login_model.dart';
+import 'package:berbera_app/models/product_attribute.dart';
 import 'package:dio/dio.dart';
 
 class APIService {
@@ -40,6 +41,30 @@ try{
 print(e.toString());
 }
   }
+
+  Future<List<Attribute>> getAttribute(String id) async {
+    try{
+      printLog("att get");
+      List<Attribute> _attributes =[];
+      var response = await Dio().get(Config.wp_URL+Config.attributes +"$id/terms?per_page=100&",
+          options: new Options(headers: {
+            HttpHeaders.contentTypeHeader:
+            "application/x-www-from-urlencoded",
+            HttpHeaders.authorizationHeader:
+           "Bearer ${Config.token}"
+          }));
+      if (response.statusCode == 200) {
+        for(int i = 0; i < response.data.length; i++){
+          _attributes.add(Attribute.fromJson(response.data[i]));
+        }
+        printLog("attr return");
+        return  _attributes;
+      }
+    }catch(e){
+      print(e.toString());
+    }
+  }
+
 
   Future<bool> createUser(User user) async {
 

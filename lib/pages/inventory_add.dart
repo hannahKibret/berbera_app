@@ -6,8 +6,7 @@ import 'package:berbera_app/models/category.dart';
 import 'package:berbera_app/services/api_service.dart';
 import 'package:berbera_app/widgets/expansion_info.dart';
 import 'package:flutter/material.dart';
-import 'package:image_picker/image_picker.dart';
-import 'package:berbera_app/widgets/category_dropdown_field.dart';
+
 
 // ignore: must_be_immutable
 class InventoryAdd extends StatefulWidget {
@@ -23,13 +22,10 @@ class _InventoryAddState extends State<InventoryAdd> {
   APIService apiService;
   String title;
   _InventoryAddState(this.product, this.title);
-
+List<Widget> variationList =[];
   bool _formChanged = false;
   final GlobalKey<FormState> _formKey = GlobalKey<FormState>();
   FocusNode focusNode;
-  File _image;
-  // String _downloadURL;
-  String _category;
 
   TextEditingController _controller_name = TextEditingController();
   TextEditingController _controller_description_ = TextEditingController();
@@ -55,7 +51,7 @@ category_items =_radio_categry();
   Widget build(BuildContext context) {
     return Scaffold(
         appBar: AppBar(
-          title: Text(title , style: TextStyle(color: Colors.white)),
+          title: Text("title" , style: TextStyle(color: Colors.white)),
         ),
         body: SingleChildScrollView(
 child: Column(
@@ -109,6 +105,14 @@ hint:Text( "Product Type"),
     SizedBox(height: 10,),
     ExpansionInfo(
       expand: true,
+      title: "Image and Gallery".toUpperCase(),
+      children: [
+
+      ],
+    ),
+    SizedBox(height: 10,),
+    ExpansionInfo(
+      expand: true,
       title: "Inventory".toUpperCase(),
       children: [
 Row(children: [
@@ -148,14 +152,7 @@ Row(children: [
               Text('Color', style: TextStyle(fontSize: 20,),),
             ],
           ),
-          children: <Widget>[
-            SizedBox(height: 30,),
-            Center(
-              child: Text('Your monthly fee: '),
-
-            ),
-            SizedBox(height: 30,),
-          ],
+          children: getAttributeWidget("1"),
         ),
         ExpansionTile(
           title: Row(
@@ -165,14 +162,7 @@ Row(children: [
               Text('Size', style: TextStyle(fontSize: 20,),),
             ],
           ),
-          children: <Widget>[
-            SizedBox(height: 30,),
-            Center(
-              child: Text('Your monthly fee: '),
-
-            ),
-            SizedBox(height: 30,),
-          ],
+          children: getAttributeWidget("2"),
         )
       ],
     ),
@@ -180,9 +170,15 @@ Row(children: [
     ExpansionInfo(
       expand: true,
       title: "Variation".toUpperCase(),
-      children: [
-
-      ],
+      children:  [
+        Column(children: variationList,),
+        RaisedButton(onPressed: (){
+          setState(() {
+           // variationList.add(getVariationWidget(color, size));
+          });
+        },
+        child: Text("Add Variation"),)
+      ]
     ),
 
   ],
