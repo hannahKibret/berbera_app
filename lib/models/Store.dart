@@ -3,7 +3,7 @@ import 'package:berbera_app/config/strings.dart';
 import 'package:flutter/material.dart';
 
 class StoreModel with ChangeNotifier {
-//  final Services _service = Services();
+
   final String langCode;
 
   StoreModel({
@@ -25,7 +25,7 @@ class StoreModel with ChangeNotifier {
 }
 
 class Store {
-  var id;
+  String id;
   String name;
   String email;
   double rating;
@@ -38,7 +38,6 @@ class Store {
   double lat;
   double long;
   Map<String, String> socials;
-
 
   Store.fromWCFMJson(Map<String, dynamic> parsedJson) {
     //TODO: added to string
