@@ -1,8 +1,8 @@
 import 'dart:io';
 
 import 'package:berbera_app/config/general.dart';
-import 'package:berbera_app/models/Product.dart';
 import 'package:berbera_app/models/category.dart';
+import 'package:berbera_app/models/product.dart';
 import 'package:berbera_app/services/api_service.dart';
 import 'package:berbera_app/widgets/expansion_info.dart';
 import 'package:flutter/material.dart';
@@ -147,7 +147,7 @@ Row(children: [
         ExpansionTile(
           title: Row(
             children: <Widget>[
-              Icon(Icons.color_lens_outlined, color: Colors.orangeAccent,),
+              Icon(Icons.color_lens, color: Colors.orangeAccent,),
               SizedBox(width: 10),
               Text('Color', style: TextStyle(fontSize: 20,),),
             ],
@@ -157,7 +157,7 @@ Row(children: [
         ExpansionTile(
           title: Row(
             children: <Widget>[
-              Icon(Icons.format_size_outlined, color: Colors.orangeAccent,),
+              Icon(Icons.format_size, color: Colors.orangeAccent,),
               SizedBox(width: 10),
               Text('Size', style: TextStyle(fontSize: 20,),),
             ],

@@ -4,6 +4,7 @@ import 'package:flutter/material.dart';
 import 'package:bubble_bottom_bar/bubble_bottom_bar.dart';
 import 'home.dart';
 import 'notification_page.dart';
+import 'order/order_home.dart';
 
 class HomePage extends StatefulWidget {
   @override
@@ -70,11 +71,11 @@ class _HomePageState extends State<HomePage> {
               BubbleBottomBarItem(
                 backgroundColor: Colors.purple[900],
                 icon: Icon(
-                  Icons.home_outlined,
+                  Icons.home,//home_outlined,
                   color: Theme.of(context).primaryColor,
                 ),
                 activeIcon: Icon(
-                  Icons.home_outlined,
+                  Icons.home,//home_outlined,
                   color: Colors.purple[900],
                 ),
                 title: Text('Home'),
@@ -82,11 +83,11 @@ class _HomePageState extends State<HomePage> {
               BubbleBottomBarItem(
                 backgroundColor: Colors.purple[900],
                 icon: Icon(
-                  Icons.add_shopping_cart_outlined,
+                  Icons.shopping_cart,//add_shopping_cart_outlined,
                   color: Theme.of(context).primaryColor,
                 ),
                 activeIcon: Icon(
-                  Icons.add_shopping_cart_outlined,
+                  Icons.shopping_cart,//add_shopping_cart_outlined,
                   color: Colors.purple[900],
                 ),
                 title: Text('Orders'),
@@ -119,8 +120,10 @@ class _HomePageState extends State<HomePage> {
           ),
           body: (currentIndex == 0)
               ? Home()
-              : (currentIndex == 2)
-                  ? InventoryHome()
+              : (currentIndex == 1)
+                ? OrderHome()
+                : (currentIndex == 2)
+                    ? InventoryHome()
                   : (currentIndex == 3)
                       ? ProfilePage()
                       : Icon(

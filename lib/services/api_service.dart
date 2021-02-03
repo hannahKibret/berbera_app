@@ -6,7 +6,7 @@ import 'package:berbera_app/config/Config.dart';
 import 'package:berbera_app/config/general.dart';
 import 'package:berbera_app/models/Notification.dart';
 import 'package:berbera_app/models/Order.dart';
-import 'package:berbera_app/models/Product.dart';
+import 'package:berbera_app/models/product.dart';
 import 'package:berbera_app/models/User.dart';
 import 'package:berbera_app/models/Vendor.dart';
 import 'package:berbera_app/models/category.dart';
@@ -77,7 +77,10 @@ print(e.toString());
           //  HttpHeaders.authorizationHeader: 'Basic $authToken',
             HttpHeaders.contentTypeHeader: "application/json"
           }));
+
       if (response.statusCode == 200) {
+        //await loginUser(user.email, user.user_pass);
+
         ret = true;
       }
     } on DioError catch (e) {
@@ -198,7 +201,7 @@ print(e.toString());
     } on DioError catch (e) {}
   }
 
-  Future<List<Order>> getOrders(String id) async {
+  Future getOrders({String id}) async {
     if (id == null) {
       try {
         var response = await Dio().get(Config.wcfmURL + Config.orders,
@@ -209,9 +212,10 @@ print(e.toString());
                   "Bearer ${Config.token}"
             }));
         if (response.statusCode == 200) {
-          Iterable l = json.decode(response.data);
-          List<Order> Orders =
-              List<Order>.from(l.map((model) => Notification.fromJSON(model)));
+          List<Order> Orders = [];
+          for(int i = 0; i < response.data.length; i++){
+            Orders.add(Order.fromJson(response.data[i]));
+          }
           return Orders;
         }
       } on DioError catch (e) {}
@@ -225,10 +229,47 @@ print(e.toString());
                   "Bearer ${Config.token}"
             }));
         if (response.statusCode == 200) {
-          Iterable l = json.decode(response.data);
-          List<Order> orders =
-              List<Order>.from(l.map((model) => Notification.fromJSON(model)));
-          return orders;
+          return Order.fromJson(response.data);
+        }
+      } on DioError catch (e) {}
+    }
+  }
+
+  Future<List<Order>> getPendingOrders({String id}) async {
+    if (id == null) {
+      try {
+        var response = await Dio().get(Config.wcfmURL + Config.orders,
+            options: new Options(headers: {
+              HttpHeaders.contentTypeHeader:
+              "application/x-www-from-urlencoded",
+              HttpHeaders.authorizationHeader:
+              "Bearer ${Config.token}"
+            }));
+        if (response.statusCode == 200) {
+          List<Order> Orders = [];
+          for(int i = 0; i < response.data.length; i++){
+            if(Order.fromJson(response.data[i]).status == 'processing'){
+              Orders.add(Order.fromJson(response.data[i]));
+            }
+          }
+          return Orders;
+        }
+      } on DioError catch (e) {}
+    } else {
+      try {
+        var response = await Dio().get(Config.wcfmURL + Config.orders + id,
+            options: new Options(headers: {
+              HttpHeaders.contentTypeHeader:
+              "application/x-www-from-urlencoded",
+              HttpHeaders.authorizationHeader:
+              "Bearer ${Config.token}"
+            }));
+        if (response.statusCode == 200) {
+          List<Order> Orders = [];
+          for(int i = 0; i < response.data.length; i++){
+            Orders.add(Order.fromJson(response.data[i]));
+          }
+          return Orders;
         }
       } on DioError catch (e) {}
     }

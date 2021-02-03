@@ -27,7 +27,7 @@ class ExpansionInfo extends StatelessWidget {
                 children: <Widget>[
                   Text(
                     title.toUpperCase(),
-                    style: Theme.of(context).textTheme.subtitle2.copyWith(
+                    style: Theme.of(context).textTheme.subtitle.copyWith(
                           fontWeight: FontWeight.w600,
                           letterSpacing: 0.5,
                         ),
@@ -55,7 +55,7 @@ class ExpansionInfo extends StatelessWidget {
                     title.toUpperCase(),
                     style: Theme.of(context)
                         .textTheme
-                        .subtitle2
+                        .subtitle
                         .copyWith(fontWeight: FontWeight.w600),
                   ),
                   Icon(

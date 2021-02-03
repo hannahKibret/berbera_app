@@ -52,6 +52,7 @@ class User{
     json['user_nicename'] =  user_nicename;
     json['display_name'] = display_name;
     json['phone'] = phone;
+    return json;
   }
 
 }

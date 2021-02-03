@@ -9,30 +9,37 @@ class InventoryHome extends StatelessWidget {
     // TODO: implement build
     return Scaffold(
         body: Container(
-      padding: const EdgeInsets.symmetric(horizontal: 20.0, vertical: 55.0),
+      padding: const EdgeInsets.symmetric(horizontal: 20.0, vertical: 35.0),
       child: ListView(children: [
         SizedBox(height: 35.0),
         GestureDetector(
             child: Card(
-              child: Column(
-                mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                crossAxisAlignment: CrossAxisAlignment.center,
-                children: [
-                  SizedBox(height: 20.0),
-                  Icon(
-                    Icons.add_circle_outline,
-                    color: Colors.orange,
-                  ),
-                  SizedBox(height: 20.0),
-                  Text(
-                    'Add',
-                    style: TextStyle(
-                      fontWeight: FontWeight.bold,
-                      fontSize: 20.0,
+              child: Padding(
+                padding: const EdgeInsets.fromLTRB(20.0,40.0, 10.0, 40.0),
+                child: Row(
+                  mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                  crossAxisAlignment: CrossAxisAlignment.center,
+                  children: [
+                    //SizedBox(height: 20.0),
+                    Icon(
+                      Icons.add_circle_outline,
+                      color: Colors.orange,
                     ),
-                  ),
-                  SizedBox(height: 20.0),
-                ],
+                    SizedBox(width: 20.0),
+                    Text(
+                      'Add Products',
+                      style: TextStyle(
+                        fontWeight: FontWeight.bold,
+                        fontSize: 20.0,
+                      ),
+                    ),
+                    SizedBox(width: 20.0),
+                    Icon(
+                      Icons.keyboard_arrow_right,
+                      color: Colors.orange,
+                    ),
+                  ],
+                ),
               ),
             ),
             onTap: () {
@@ -47,25 +54,32 @@ class InventoryHome extends StatelessWidget {
         SizedBox(height: 35.0),
         GestureDetector(
           child: Card(
-            child: Column(
-              mainAxisAlignment: MainAxisAlignment.spaceBetween,
-              crossAxisAlignment: CrossAxisAlignment.center,
-              children: [
-                SizedBox(height: 20.0),
-                Icon(
-                  Icons.remove_red_eye,
-                  color: Colors.orange,
-                ),
-                SizedBox(height: 20.0),
-                Text(
-                  'All Products',
-                  style: TextStyle(
-                    fontWeight: FontWeight.bold,
-                    fontSize: 20.0,
+            child: Padding(
+              padding: const EdgeInsets.fromLTRB(20.0,40.0, 10.0, 40.0),
+              child: Row(
+                mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                crossAxisAlignment: CrossAxisAlignment.center,
+                children: [
+                  //SizedBox(height: 20.0),
+                  Icon(
+                    Icons.remove_red_eye,
+                    color: Colors.orange,
                   ),
-                ),
-                SizedBox(height: 20.0),
-              ],
+                  SizedBox(width: 20.0),
+                  Text(
+                    'View Products',
+                    style: TextStyle(
+                      fontWeight: FontWeight.bold,
+                      fontSize: 20.0,
+                    ),
+                  ),
+                  SizedBox(width: 20.0),
+                  Icon(
+                    Icons.keyboard_arrow_right,
+                    color: Colors.orange,
+                  ),
+                ],
+              ),
             ),
           ),
           onTap: () {
@@ -79,35 +93,6 @@ class InventoryHome extends StatelessWidget {
           },
         ),
         SizedBox(height: 35.0),
-//            GestureDetector(
-//              child: Card(
-//                child:Column(
-//                  mainAxisAlignment: MainAxisAlignment.spaceBetween,
-//                  crossAxisAlignment: CrossAxisAlignment.center,
-//                  children: [
-//                    SizedBox(height:20.0),
-//                    Icon(
-//                      Icons.search,
-//                      color: Colors.orange,
-//                    ),
-//                    SizedBox(height:20.0),
-//                    Text(
-//                      'Search',
-//                      style: TextStyle(
-//                        fontWeight: FontWeight.bold,
-//                        fontSize: 20.0,
-//                      ),
-//                    ),
-//                    SizedBox(height:20.0),
-//                  ],
-//                ),
-//              ),
-//              onTap: (){
-//
-//              },
-//
-//            ),
-//            SizedBox(height:35.0),
       ]),
     ));
   }
