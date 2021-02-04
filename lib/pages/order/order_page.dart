@@ -45,7 +45,12 @@ class _OrderPageState extends State<OrderPage> {
                           else if(snapshot.data[index].status == 'processing'){
                             containerColor = Colors.yellow;
                           }
-
+                          else if(snapshot.data[index].status == 'cancelled'){
+                            containerColor = Colors.red;
+                          }
+                          else if(snapshot.data[index].status == 'refunded'){
+                            containerColor = Colors.cyanAccent;
+                          }
                           return GestureDetector(
                             child: Card(
                               child: Container(
@@ -61,7 +66,7 @@ class _OrderPageState extends State<OrderPage> {
                                       color: containerColor,
                                     ),
                                     Column(
-                                      //mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                                      crossAxisAlignment: CrossAxisAlignment.start,
                                       children: [
                                         Row(
                                           crossAxisAlignment: CrossAxisAlignment

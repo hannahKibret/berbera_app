@@ -37,6 +37,7 @@ class TermPage extends StatelessWidget{
 
             Text(
               
+              
               'By reading the following terms and conditions you have understood, and agreed to be bounded by all of those terms of use.'
                   'Mentioned as follow; Provide accurate information from color to features and any information considered necessary. All'
                   ' registration info you submit are true, accurate, current and complete. And that you have agreed to keep your password'
@@ -45,6 +46,7 @@ class TermPage extends StatelessWidget{
                   ' . mobile banking and\n. in cash\nYou further agree to promptly update account and payment for all prices in ETB. And retailer found violating the terms will'
                   ' lose their account and can\'t use the Hulu service for unlimited period.',
               style:TextStyle(
+                height: 1.8,
                 fontWeight: FontWeight.w500,
                 fontSize: 13.0,
               

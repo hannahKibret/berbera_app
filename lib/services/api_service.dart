@@ -6,6 +6,7 @@ import 'package:berbera_app/config/Config.dart';
 import 'package:berbera_app/config/general.dart';
 import 'package:berbera_app/models/Notification.dart';
 import 'package:berbera_app/models/Order.dart';
+import 'package:berbera_app/models/Review.dart';
 import 'package:berbera_app/models/product.dart';
 import 'package:berbera_app/models/User.dart';
 import 'package:berbera_app/models/Vendor.dart';
@@ -361,6 +362,7 @@ print(e.toString());
         Config.token = user_data.token;
         Config.displayname = user_data.display_name;
         Config.email = user_data.email;
+        Config.storeid = user_data.store_id.toString();
         // print(user_data.token);
         user.data = user_data;
         user.statusCode = response.statusCode;
@@ -370,5 +372,31 @@ print(e.toString());
       print(e.message);
       return null;
     }
+  }
+  Future<List<Review>> getReviews(String id) async {
+    try {
+      print('config${Config.token}');
+      var response = await Dio().get(Config.wcfmURL + Config.review,
+
+          options: new Options(headers: {
+            HttpHeaders.contentTypeHeader:
+            "application/x-www-from-urlencoded",
+            // HttpHeaders.authorizationHeader:
+            //     "Bearer ${Config.token}"
+          }));
+      print('yayeeee');
+      if (response.statusCode == 200) {
+        print('yaeee2');
+        List<Review> reviews = [];
+        for(int i = 0; i < response.data.length; i++){
+
+          if(response.data[i]['vendor_id'] == id){
+            reviews.add(Review.fromJSON(response.data[i]));
+          }
+        }
+
+        return reviews;
+      }
+    } on DioError catch (e) {print('nnnn: ${e.response}');}
   }
 }
