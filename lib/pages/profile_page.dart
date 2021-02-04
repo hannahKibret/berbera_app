@@ -1,7 +1,10 @@
 import 'package:flutter/material.dart';
 import 'package:berbera_app/config/Config.dart';
 import 'package:berbera_app/pages/term_page.dart';
+import 'package:berbera_app/pages/feedback_page.dart';
+//import 'package:berbera_app/pages/edit_account.dart';
 
+import '../models/User.dart';
 import 'about.dart';
 
 class ProfilePage extends StatefulWidget{
@@ -9,9 +12,28 @@ class ProfilePage extends StatefulWidget{
   _ProfilePageState createState() => _ProfilePageState();
 }
 
+
+
 class _ProfilePageState extends State<ProfilePage> {
+
+  User user = User();
+
+
+@override
+  void initstate(){
+    super.initState();
+    user.first_name = Config.firstname;
+    user.last_name = Config.lastname;
+    user.email = Config.email;
+    
+  
+
+
+  }
+
   @override
   Widget build(BuildContext context) {
+
     return Scaffold(
       body: ListView(
         //mainAxisAlignment: MainAxisAlignment.center,
@@ -35,103 +57,100 @@ class _ProfilePageState extends State<ProfilePage> {
           Text(Config.displayname, textAlign: TextAlign.center,style: TextStyle(fontSize: 20,fontWeight: FontWeight.w600),),
           SizedBox(height: 12.0),
           Text(Config.email, textAlign: TextAlign.center,style: TextStyle(fontSize: 14,),),
-          Padding(
-            padding: const EdgeInsets.fromLTRB(28, 70, 0, 0),
-            child: Row(
-              //mainAxisAlignment: MainAxisAlignment.center,
-              children: <Widget>[
-                Icon(Icons.edit, color: Colors.orangeAccent,),
-                SizedBox(width: 10),
-                Text('Edit Profile', style: TextStyle(fontSize: 20,),),
-              ],
-            ),
-          ),
-          //SizedBox(height: 20,),
-          Padding(
-            padding: const EdgeInsets.fromLTRB(18, 30, 0, 0),
-            child: ExpansionTile(
-              title: Row(
-                //mainAxisAlignment: MainAxisAlignment.center,
-                children: <Widget>[
-                  Icon(Icons.payment, color: Colors.orangeAccent,),
-                  SizedBox(width: 10),
-                  Text('Payment', style: TextStyle(fontSize: 20,),),
-                ],
-              ),
-              children: <Widget>[
-                SizedBox(height: 30,),
-                Center(
-                  child: Text('Your monthly fee: '),
+          // Padding(
+          //   padding: const EdgeInsets.fromLTRB(18, 20, 0, 0),
+          //   child: ListTile(
 
+          //       title: Text('Edit Account',style: TextStyle(fontSize: 20,),),
+          //       leading: Icon(Icons.edit, color: Colors.orangeAccent,),
+          //       trailing: IconButton(
+          //         icon: Icon(Icons.chevron_right,color:Colors.black),
+          //         onPressed: (){
+          //            Navigator.pushReplacement(
+          //       context,
+          //       MaterialPageRoute(
+          //         builder: (context) => EditAccount(firstname: user.first_name,lastname: user.last_name, email: user.email),
+          //         settings: RouteSettings(arguments: ''),
+          //       ),
+          //     );
+          //         },
+          //         ),
+          //     ),
+          //   ),
+             
+        
+           Padding(
+            padding: const EdgeInsets.fromLTRB(18, 20, 0, 0),
+            child: ListTile(
+
+                title: Text('Feedback',style: TextStyle(fontSize: 20,),),
+                leading: Icon(Icons.feedback, color: Colors.orangeAccent,),
+                trailing: IconButton(
+                  icon: Icon(Icons.chevron_right,color:Colors.black),
+                  onPressed: (){
+                     Navigator.push(
+                context,
+                MaterialPageRoute(
+                  builder: (context) => Feed(),
+                  settings: RouteSettings(arguments: ''),
                 ),
-                SizedBox(height: 30,),
-              ],
-            ),
-          ),
-          Padding(
-            padding: const EdgeInsets.fromLTRB(18, 20, 0, 0),
-            child: ExpansionTile(
-              title: Row(
-                //mainAxisAlignment: MainAxisAlignment.center,
-                children: <Widget>[
-                  Icon(Icons.feedback, color: Colors.orangeAccent,),
-                  SizedBox(width: 10),
-                  Text('Feedback', style: TextStyle(fontSize: 20,),),
-                ],
+              );
+                  },
+                  ),
               ),
             ),
-          ),
+             
           Padding(
             padding: const EdgeInsets.fromLTRB(18, 20, 0, 0),
             child: ListTile(
 
-              title: Text('Term And Condition',style: TextStyle(fontSize: 20,),),
-              leading: Icon(Icons.assignment, color: Colors.orangeAccent,),
-              trailing: IconButton(
-                icon: Icon(Icons.chevron_right,color:Colors.black),
-                onPressed: (){
-                  Navigator.push(
-                    context,
-                    MaterialPageRoute(
-                      builder: (context) => TermPage(),
-                      settings: RouteSettings(arguments: ''),
-                    ),
-                  );
-                },
+                title: Text('Term And Condition',style: TextStyle(fontSize: 20,),),
+                leading: Icon(Icons.assignment, color: Colors.orangeAccent,),
+                trailing: IconButton(
+                  icon: Icon(Icons.chevron_right,color:Colors.black),
+                  onPressed: (){
+                     Navigator.push(
+                context,
+                MaterialPageRoute(
+                  builder: (context) => TermPage(),
+                  settings: RouteSettings(arguments: ''),
+                ),
+              );
+                  },
+                  ),
               ),
             ),
-          ),
-          Padding(
+             Padding(
             padding: const EdgeInsets.fromLTRB(18, 20, 0, 0),
             child: ListTile(
-              title: Text('About Us', style: TextStyle(fontSize: 20,),),
-              leading: Icon(Icons.info_outline, color: Colors.orangeAccent,),
-              trailing: IconButton(
-                icon: Icon(Icons.chevron_right,color:Colors.black),
-                onPressed: (){
-                  Navigator.push(
-                    context,
-                    MaterialPageRoute(
-                      builder: (context) => About(),
-                      settings: RouteSettings(arguments: ''),
-                    ),
-                  );
-                },
+                title: Text('About Us', style: TextStyle(fontSize: 20,),),
+                leading: Icon(Icons.info_outline, color: Colors.orangeAccent,),
+                trailing: IconButton(
+                  icon: Icon(Icons.chevron_right,color:Colors.black),
+                  onPressed: (){
+                    Navigator.push(
+                context,
+                MaterialPageRoute(
+                  builder: (context) => About(),
+                  settings: RouteSettings(arguments: ''),
+                ),
+              );
+                  },
+                  ),
               ),
             ),
-          ),
-          Padding(
+             Padding(
             padding: const EdgeInsets.fromLTRB(18, 20, 0, 0),
             child: ListTile(
 
-              title: Text('Log Out', style: TextStyle(fontSize: 20,),),
-              leading: Icon(Icons.exit_to_app, color: Colors.orangeAccent,),
-              trailing: IconButton(
-                icon: Icon(Icons.chevron_right,color:Colors.black),
-                onPressed: (){},
+                title: Text('Log Out', style: TextStyle(fontSize: 20,),),
+                leading: Icon(Icons.exit_to_app, color: Colors.orangeAccent,),
+                trailing: IconButton(
+                  icon: Icon(Icons.chevron_right,color:Colors.black),
+                  onPressed: (){},
+                  ),
               ),
-            ),
-          )
+            )
         ],
       ),
     );

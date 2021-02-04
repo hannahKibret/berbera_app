@@ -17,7 +17,6 @@ class InventoryView extends StatefulWidget {
 class _InventoryViewState extends State<InventoryView> {
   Product product;
 
-
   _InventoryViewState(this.product);
 
   Item item1 = Item();

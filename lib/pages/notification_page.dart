@@ -39,11 +39,45 @@ class _NotificationPageState extends State<NotificationPage> {
                 itemBuilder: (BuildContext context, int index) {
                   // downloadImagee(snap.data.documents[index]['image']);
                   return Card(
-                    child: Container(
+                    color: Colors.white,
+                    
+                    child: Wrap(
+                      children: [
+                        Padding(
                       padding: const EdgeInsets.symmetric(
-                          vertical: 15.0, horizontal: 15.0),
-                      child: Text(snapshot.data[index].message),
+                      vertical: 15.0, horizontal: 15.0),
+                      child: SizedBox(
+                        
+                      
+                     // color: Colors.white,
+                      //height: 60.0,
+                      // padding: const EdgeInsets.symmetric(
+                      //     vertical: 15.0, horizontal: 15.0),
+                          child: Row(
+                            children:[
+
+                              Icon(Icons.notifications_active,color:Colors.grey[700]),
+                              SizedBox(width: 10.0),
+                              Flexible(
+                              child: Column(
+                                crossAxisAlignment: CrossAxisAlignment.start,
+                                mainAxisAlignment: MainAxisAlignment.center,
+                                children: [
+                                  Text(snapshot.data[index].message,style:TextStyle(color:Colors.black)),
+                                  SizedBox(height: 10.0),
+                                  Text(snapshot.data[index].created,style:TextStyle(color:Colors.grey[500],fontSize: 11.0)),
+                                ]
+
+
+                              )
+                              )
+                            ]
+
+                          ),
+                          ),
+                      //child: Text(snapshot.data[index].message),
                     ),
+                    ],),
                   );
                 }
 
