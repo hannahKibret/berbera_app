@@ -2,7 +2,6 @@ import 'package:flutter/material.dart';
 import 'package:berbera_app/config/Config.dart';
 import 'package:berbera_app/pages/term_page.dart';
 import 'package:berbera_app/pages/feedback_page.dart';
-//import 'package:berbera_app/pages/edit_account.dart';
 
 import '../models/User.dart';
 import 'about.dart';
@@ -25,10 +24,7 @@ class _ProfilePageState extends State<ProfilePage> {
     user.first_name = Config.firstname;
     user.last_name = Config.lastname;
     user.email = Config.email;
-    
-  
-
-
+    user.store_name = Config.store_name;
   }
 
   @override
@@ -44,12 +40,8 @@ class _ProfilePageState extends State<ProfilePage> {
             child: Container(
               width: 150,
               height: 150,
-              decoration: BoxDecoration(
-                shape: BoxShape.circle,
-                image: DecorationImage(
-                  image: AssetImage('assets/images/Avatar.png'),
-                  fit: BoxFit.cover,
-                ),
+              child: CircleAvatar(
+                child: Image.network("${Config.userInfo.avatarUrl}"),
               ),
             ),
           ),

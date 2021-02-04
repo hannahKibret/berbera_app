@@ -1,6 +1,5 @@
 import 'package:berbera_app/config/general.dart';
 import 'package:berbera_app/config/strings.dart';
-import 'package:berbera_app/models/serializer/product.dart';
 import 'ProductAddon.dart';
 import 'Store.dart';
 import 'Tag.dart';

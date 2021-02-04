@@ -2,6 +2,7 @@ import 'package:adobe_xd/pinned.dart';
 import 'package:fl_chart/fl_chart.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
+import 'package:berbera_app/config/Config.dart';
 
 class Home extends StatefulWidget{
   @override
@@ -29,8 +30,10 @@ class Home extends StatefulWidget{
           children: <Widget>[
 
          Container(
+           margin: EdgeInsets.only(top: 15),
+           alignment: Alignment.center,
            child: Text(
-                  'Store Name',
+                  Config.store_name,
                   style: TextStyle(
                     fontFamily: 'Segoe UI',
                     fontSize: 20,
@@ -39,26 +42,34 @@ class Home extends StatefulWidget{
                   ),
                   textAlign: TextAlign.left,
                 ),
-           alignment: Alignment.center,
-margin: EdgeInsets.only(top: 15),
+
          ),
             Container(
               alignment: Alignment.center,
               margin: EdgeInsets.only(top: 40) ,
-              child: Text(
-                '2 processing orders',
-                style: TextStyle(
-                  fontFamily: 'Segoe UI',
-                  fontSize: 20,
-                  color: const Color(0xFF707070),
-                ),
-                textAlign: TextAlign.left,
+              child: Config.isOffline ?Text(
+              "Offline",
+              style: TextStyle(
+                fontFamily: 'Segoe UI',
+                fontSize: 20,
+                color: Colors.red,
               ),
+              textAlign: TextAlign.left,
+            ):Text(
+              "Online",
+              style: TextStyle(
+                fontFamily: 'Segoe UI',
+                fontSize: 20,
+                color: Colors.green,
+              ),
+              textAlign: TextAlign.left,
+            )
             ),
             Container(
               alignment: Alignment.centerLeft,
               margin: EdgeInsets.all( 12),
               child: CircleAvatar(
+              //  child: Image.network("${Config.image_url}"),
                 maxRadius: 30,
                 minRadius: 25,
               ),

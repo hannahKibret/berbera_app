@@ -1,5 +1,7 @@
+import 'package:berbera_app/config/Config.dart';
 import 'package:berbera_app/pages/inventory_home.dart';
 import 'package:berbera_app/pages/profile_page.dart';
+import 'package:berbera_app/services/api_service.dart';
 import 'package:flutter/material.dart';
 import 'package:bubble_bottom_bar/bubble_bottom_bar.dart';
 import 'home.dart';
@@ -17,7 +19,9 @@ class _HomePageState extends State<HomePage> {
   @override
   void initState() {
     super.initState();
-
+    APIService apiService = new APIService();
+    print("APP STARTED");
+apiService.get_full_user_data().then((value) => Config.userInfo = value);
     currentIndex = 0;
   }
 

@@ -7,6 +7,7 @@ import 'package:berbera_app/config/general.dart';
 import 'package:berbera_app/models/Notification.dart';
 import 'package:berbera_app/models/Order.dart';
 import 'package:berbera_app/models/Review.dart';
+import 'package:berbera_app/models/full_user_info.dart';
 import 'package:berbera_app/models/product.dart';
 import 'package:berbera_app/models/User.dart';
 import 'package:berbera_app/models/Vendor.dart';
@@ -361,6 +362,8 @@ print(e.toString());
         Vendor user_data = Vendor.fromJson(response.data);
         Config.token = user_data.token;
         Config.displayname = user_data.display_name;
+        Config.store_name = user_data.store_name;
+        Config.image_url = user_data.image_url;
         Config.email = user_data.email;
         Config.storeid = user_data.store_id.toString();
         // print(user_data.token);
@@ -399,4 +402,26 @@ print(e.toString());
       }
     } on DioError catch (e) {print('nnnn: ${e.response}');}
   }
+
+  Future<FullUserInfo> get_full_user_data() async {
+    try {
+      print("getting user full info");
+      print('config${Config.token}');
+      var response = await Dio().get(Config.wp_URL + Config.userURL +"/${Config.storeid}",
+
+          options: new Options(headers: {
+            HttpHeaders.contentTypeHeader:
+            "application/x-www-from-urlencoded",
+            HttpHeaders.authorizationHeader:
+            "Bearer ${Config.token}"
+          }));
+      if (response.statusCode == 200) {
+        FullUserInfo userInfo;
+        userInfo = FullUserInfo.fromJson(response.data);
+        print(userInfo.email);
+        return userInfo;
+      }
+    } on DioError catch (e) {print(e.toString());}
+  }
+
 }

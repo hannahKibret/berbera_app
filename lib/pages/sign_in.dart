@@ -159,7 +159,7 @@ APIService apiService;
                                           child: Text("okay"),
                                           onPressed: () {
                                             Navigator.of(ctx).pop();
-                                            Navigator.of(context).pop();
+
                                             Navigator.pushReplacement(
                                               context,
                                               MaterialPageRoute(
