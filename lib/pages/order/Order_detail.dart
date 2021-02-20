@@ -84,7 +84,7 @@ class OrderDetail extends StatelessWidget {
                                           mainAxisAlignment: MainAxisAlignment.spaceBetween,
                                           children: <Widget>[
                                             Text('Item Price: ', style: TextStyle(fontSize: 18, color: Colors.orange, fontWeight: FontWeight.bold),),
-                                            Text('Br'+ snapshot.data.total.toString(), style: TextStyle(fontSize: 18,),)
+                                            Text('Br'+ snapshot.data.lineItems[index].total.toString(), style: TextStyle(fontSize: 18,),)
                                           ],
                                         ),
                                       ),
