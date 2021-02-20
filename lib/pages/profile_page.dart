@@ -46,9 +46,9 @@ class _ProfilePageState extends State<ProfilePage> {
             ),
           ),
           SizedBox(height: 30,),
-          Text(Config.displayname, textAlign: TextAlign.center,style: TextStyle(fontSize: 20,fontWeight: FontWeight.w600),),
+          Text(Config.userInfo.firstName+" "+ Config.userInfo.lastName, textAlign: TextAlign.center,style: TextStyle(fontSize: 20,fontWeight: FontWeight.w600),),
           SizedBox(height: 12.0),
-          Text(Config.email, textAlign: TextAlign.center,style: TextStyle(fontSize: 14,),),
+          Text(Config.userInfo.email, textAlign: TextAlign.center,style: TextStyle(fontSize: 14,),),
           // Padding(
           //   padding: const EdgeInsets.fromLTRB(18, 20, 0, 0),
           //   child: ListTile(

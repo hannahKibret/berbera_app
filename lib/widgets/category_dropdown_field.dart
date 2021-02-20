@@ -1,5 +1,5 @@
+import 'package:berbera_app/pages/inventory_view.dart';
 import 'package:flutter/material.dart';
-import 'package:berbera_app/models/item.dart';
 
 class CategoryDropDownField extends StatelessWidget {
   String selectedCategory;

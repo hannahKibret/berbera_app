@@ -114,7 +114,7 @@ print(e.toString());
   }
 
 
-  Future<List<Product>> getProducts(String id) async {
+  Future<List<Product>> getProducts({String id}) async {
     if (id == null) {
       try {
         var response = await Dio().get(Config.wcfmURL + Config.products,
@@ -125,12 +125,27 @@ print(e.toString());
                   "Bearer ${Config.token}"
             }));
         if (response.statusCode == 200) {
-          Iterable l = json.decode(response.data);
-          List<Product> products = List<Product>.from(
-              l.map((model) => Notification.fromJSON(model)));
-          return products;
+
+          print(response.data);
+
+          List<Product> products = [];
+
+          for(int i = 0; i < response.data.length; i++){
+            products.add(Product.fromJson(response.data[i]));
+          }
+
+          print(products.length);
+          // var dt = response.data.toString();
+          // Iterable l ;
+          // List<Product> products = List<Product>.from(
+          //     l.map((model) => Product.fromJson(model)));
+          // print('url${Config.wcfmURL}${Config.products}/ token ${Config.token}');
+          // print('data received====${products.length}');
+           return products;
         }
-      } on DioError catch (e) {}
+      } on DioError catch (e) {
+        print(e);
+      }
     } else {
       try {
         var response = await Dio().get(Config.wcfmURL + Config.products + id,
@@ -143,7 +158,8 @@ print(e.toString());
         if (response.statusCode == 200) {
           Iterable l = json.decode(response.data);
           List<Product> products = List<Product>.from(
-              l.map((model) => Notification.fromJSON(model)));
+              l.map((model) => Product.fromJson(model)));
+
           return products;
         }
       } on DioError catch (e) {}

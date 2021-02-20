@@ -30,7 +30,7 @@ class Categories {
     json['slug'] = this.slug;
     json['parent'] = this.parent;
     json['description'] = this.description;
-  //  json['image'] = this.image.toJSON();
+    //json['image'] = this.image.toJSON();
 
     return json;
   }

@@ -42,6 +42,8 @@ dependencies:
   event_bus: 1.1.1
   configurable_expansion_tile: 1.0.0
   flutter_rating_bar: ^3.0.1+1
+  provider: 4.3.2+3
+
 
 dev_dependencies:
   flutter_test:

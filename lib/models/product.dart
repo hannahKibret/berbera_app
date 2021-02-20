@@ -1,5 +1,6 @@
 import 'package:berbera_app/config/general.dart';
 import 'package:berbera_app/config/strings.dart';
+import 'package:berbera_app/services/api_service.dart';
 import 'ProductAddon.dart';
 import 'Store.dart';
 import 'Tag.dart';
@@ -489,3 +490,6 @@ class Product {
   }
 
 }
+
+
+

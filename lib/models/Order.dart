@@ -97,7 +97,7 @@ class ProductItem {
   String total;
   String featuredImage;
   String addonsOptions;
-  String  variationid;
+  int  variationid;
 
   ProductItem.fromJson(Map<String, dynamic> parsedJson) {
     try {

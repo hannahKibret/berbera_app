@@ -1,8 +1,22 @@
 import 'package:berbera_app/models/product.dart';
+import 'package:berbera_app/services/api_service.dart';
 import 'package:flutter/material.dart';
-import 'package:berbera_app/models/item.dart';
+
 
 import 'inventory_add.dart';
+
+List<Product> loadProducts()
+{
+  APIService apiService = new APIService();
+  List<Product> products=[];
+  apiService.getProducts().then((value) {
+    products = value;
+    print('========items=======${products.length}');
+  });
+  return products;
+}
+
+List<String> Categories = ["Male", "Female", "Kids", "All"];
 
 class InventoryView extends StatefulWidget {
 
@@ -19,15 +33,21 @@ class _InventoryViewState extends State<InventoryView> {
 
   _InventoryViewState(this.product);
 
-  Item item1 = Item();
-  Item item2 = Item();
-  List<Item> items = loadItem();
+  List<Product> items ;
+
+  @override
+  void initState() {
+    items =loadProducts();
+    super.initState();
+  }
+
 
   @override
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: AppBar(
-        title: Text('Item', style: TextStyle(color: Colors.white)),
+        title: Text('Products', style: TextStyle(color: Colors.white)),
+        centerTitle: true,
         actions: <Widget>[
           IconButton(
             icon: Icon(Icons.search, color: Colors.white),
@@ -40,65 +60,34 @@ class _InventoryViewState extends State<InventoryView> {
           ),
         ],
       ),
-      body: Container(
-        padding: const EdgeInsets.symmetric(vertical: 20.0, horizontal: 10.0),
-        child: ListView.builder(
+      body:  Container(
+        child:  GridView.builder(
+            gridDelegate: SliverGridDelegateWithMaxCrossAxisExtent(
+            maxCrossAxisExtent: 200,
+            childAspectRatio: 1 /2,
+            crossAxisSpacing: 10,
+            mainAxisSpacing: 10),
             itemCount: items.length,
-            scrollDirection: Axis.vertical,
-            itemBuilder: (BuildContext context, int index) {
-              // downloadImagee(snap.data.documents[index]['image']);
+            itemBuilder: (BuildContext ctx, index) {
               return Card(
-                child: Container(
-                  padding: const EdgeInsets.symmetric(
-                      vertical: 15.0, horizontal: 15.0),
-                  child: Row(
-                    mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                    children: [
-                      Column(
-                        mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                        crossAxisAlignment: CrossAxisAlignment.start,
-                        children: [
-                          Text(items[index].itemName,
-                              style: TextStyle(fontSize: 20.0)),
-                          SizedBox(height: 12.0),
-                          Text(items[index].qty.toString(),
-                              style: TextStyle(fontSize: 20.0)),
-                        ],
-                      ),
-                      Column(
-                        mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                        crossAxisAlignment: CrossAxisAlignment.start,
-                        children: [
-                          Text(items[index].date,
-                              style: TextStyle(fontSize: 20.0)),
-                          SizedBox(height: 12.0),
-                          Text(items[index].price.toString(),
-                              style: TextStyle(fontSize: 20.0)),
-                        ],
-                      ),
-                      IconButton(
-                          icon: Icon(Icons.chevron_right, color: Colors.black),
-                          onPressed: () {
-                            Navigator.push(
-                              context,
-                              MaterialPageRoute(
-                                builder: (context) => InventoryAdd(
-                                   product: product),
-                                settings: RouteSettings(arguments: ''),
-                              ),
-                            );
-                          }),
-                    ],
-                  ),
+                elevation: 0.8,
+                child: Column(
+                  children: [
+                    Image.network(items[index].imageFeature),
+                    Text(items[index].name),
+                    Text(items[index].averageRating.toString()),
+                    Text(items[index].categories.toString()),
+                    Text(items[index].stockQuantity.toString()),
+                  ],
                 ),
               );
             }),
-      ),
+      )
     );
   }
 }
 
-class ItemSearch extends SearchDelegate<Item> {
+class ItemSearch extends SearchDelegate<Product> {
   @override
   List<Widget> buildActions(BuildContext context) {
     return [
@@ -128,21 +117,21 @@ class ItemSearch extends SearchDelegate<Item> {
   @override
   Widget buildSuggestions(BuildContext context) {
     final myList = query.isEmpty
-        ? loadItem()
-        : loadItem()
+        ? loadProducts()
+        : loadProducts()
             .where(
-                (p) => p.itemName.toUpperCase().startsWith(query.toUpperCase()))
+                (p) => p.name.toUpperCase().startsWith(query.toUpperCase()))
             .toList();
     return myList.isEmpty
         ? Center(
-            child: Text('No Result Found', style: TextStyle(fontSize: 20.0)))
+            child: Text('No Product Found', style: TextStyle(fontSize: 20.0)))
         : Container(
             padding:
                 const EdgeInsets.symmetric(vertical: 20.0, horizontal: 10.0),
             child: ListView.builder(
                 itemCount: myList.length,
                 itemBuilder: (context, index) {
-                  final Item item = myList[index];
+                  final Product item = myList[index];
                   return Card(
                     child: Container(
                       padding: const EdgeInsets.symmetric(
@@ -154,18 +143,18 @@ class ItemSearch extends SearchDelegate<Item> {
                             mainAxisAlignment: MainAxisAlignment.spaceBetween,
                             crossAxisAlignment: CrossAxisAlignment.start,
                             children: [
-                              Text(item.itemName,
+                              Text(item.name,
                                   style: TextStyle(fontSize: 20.0)),
                               SizedBox(height: 12.0),
-                              Text(item.qty.toString(),
-                                  style: TextStyle(fontSize: 20.0)),
+                              // Text(item.qty.toString(),
+                              //     style: TextStyle(fontSize: 20.0)),
                             ],
                           ),
                           Column(
                             mainAxisAlignment: MainAxisAlignment.spaceBetween,
                             crossAxisAlignment: CrossAxisAlignment.start,
                             children: [
-                              Text(item.date, style: TextStyle(fontSize: 20.0)),
+                              Text(item.stockQuantity.toString(), style: TextStyle(fontSize: 20.0)),
                               SizedBox(height: 12.0),
                               Text(item.price.toString(),
                                   style: TextStyle(fontSize: 20.0)),

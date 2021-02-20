@@ -4,6 +4,8 @@ import 'inventory_add.dart';
 import 'inventory_view.dart';
 
 class InventoryHome extends StatelessWidget {
+
+
   @override
   Widget build(BuildContext context) {
     // TODO: implement build
@@ -87,7 +89,7 @@ class InventoryHome extends StatelessWidget {
               context,
               MaterialPageRoute(
                 builder: (context) => InventoryView(),
-                settings: RouteSettings(arguments: ''),
+             //   settings: RouteSettings(arguments: ''),
               ),
             );
           },
