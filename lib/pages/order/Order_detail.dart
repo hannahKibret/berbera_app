@@ -1,3 +1,4 @@
+import 'package:berbera_app/models/Order.dart';
 import 'package:berbera_app/services/api_service.dart';
 import 'package:flutter/material.dart';
 
@@ -23,6 +24,7 @@ class OrderDetail extends StatelessWidget {
           future: apiService.getOrders(id: idd),
           builder: (BuildContext context,AsyncSnapshot snapshot ) {
               if (snapshot.connectionState == ConnectionState.done) {
+                List<ProductItem> itemlist = snapshot.data.lineItems;
                 if(snapshot.data.status == 'processing'){
                   col = Colors.orange;
                 }
@@ -38,45 +40,61 @@ class OrderDetail extends StatelessWidget {
                 return Padding(
                   padding: const EdgeInsets.all(20.0),
                   child: ListView(
+                    shrinkWrap: true,
                     children: <Widget>[
-                      Row(
-                        children: <Widget>[
-                          Card(
-                            child: Image.asset('assets/images/item.jpg', fit: BoxFit.fitWidth, height: MediaQuery.of(context).size.height * 0.13,),
-                          ),
-                          SizedBox(width: 20,),
-                          Column(
-                            crossAxisAlignment: CrossAxisAlignment.start,
-                            children: <Widget>[
-                              Text('Order ID: ' + snapshot.data.id, style: TextStyle(fontSize: 18),),
-                              SizedBox(height: 8,),
-                              Text('Quantity: ' + snapshot.data.quantity.toString(), style: TextStyle(fontSize: 18),),
-                            ],
-                          ),
-                        ],
-                      ),
-                      SizedBox(height: 20,),
                       Container(
-                        height: 65,
-                        child: Card(
-                          shape: RoundedRectangleBorder(
-                            side: BorderSide(color: Colors.grey[200]),
-                            borderRadius: BorderRadius.circular(10.0),
-                          ),
-                            color: Colors.grey[200],
-                            //height: 50,
-                            child: Padding(
-                              padding: const EdgeInsets.only(top: 0.0, left: 10.0, right: 10.0),
-                              child: Row(
-                                mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                                children: <Widget>[
-                                  Text('Item Price: ', style: TextStyle(fontSize: 18, color: Colors.orange, fontWeight: FontWeight.bold),),
-                                  Text('Br'+ snapshot.data.total.toString(), style: TextStyle(fontSize: 18,),)
+                        child: ListView.builder(
+                            physics: ClampingScrollPhysics(),
+                            shrinkWrap: true,
+                            padding: const EdgeInsets.all(8),
+                            itemCount: snapshot.data.lineItems.length,
+                            itemBuilder: (BuildContext context, int index) {
+                              return Column(
+                                children: [
+                                  Row(
+                                    children: <Widget>[
+                                      Card(
+                                        //TODO: check image URL
+                                     //   child: Image.network(snapshot.data.lineItems[index].featuredImage, fit: BoxFit.fitWidth, height: MediaQuery.of(context).size.height * 0.13,),
+                                      ),
+                                      SizedBox(width: 20,),
+                                      Column(
+                                        crossAxisAlignment: CrossAxisAlignment.start,
+                                        children: <Widget>[
+                                          Text('Item name: ' + snapshot.data.lineItems[index].name, style: TextStyle(fontSize: 18),),
+                                          SizedBox(height: 8,),
+                                          Text('Quantity: ' + snapshot.data.lineItems[index].quantity.toString(), style: TextStyle(fontSize: 18),),
+                                        ],
+                                      ),
+                                    ],
+                                  ),
+                                  SizedBox(height: 10,),
+                                  Container(
+                                    height: 65,
+                                    child: Card(
+                                      shape: RoundedRectangleBorder(
+                                        side: BorderSide(color: Colors.grey[200]),
+                                        borderRadius: BorderRadius.circular(10.0),
+                                      ),
+                                      color: Colors.grey[200],
+                                      //height: 50,
+                                      child: Padding(
+                                        padding: const EdgeInsets.only(top: 0.0, left: 10.0, right: 10.0),
+                                        child: Row(
+                                          mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                                          children: <Widget>[
+                                            Text('Item Price: ', style: TextStyle(fontSize: 18, color: Colors.orange, fontWeight: FontWeight.bold),),
+                                            Text('Br'+ snapshot.data.total.toString(), style: TextStyle(fontSize: 18,),)
+                                          ],
+                                        ),
+                                      ),
+                                    ),
+                                  ),
                                 ],
-                              ),
-                            ),
-                        ),
+                              );
+                            }),
                       ),
+
                       SizedBox(height: 20,),
                       Container(
                         height: 160,
@@ -91,19 +109,19 @@ class OrderDetail extends StatelessWidget {
                             padding: const EdgeInsets.only(top: 20.0, left: 10.0, right: 10.0),
                             child: Column(
                               children: <Widget>[
-                                Row(
-                                  mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                                  children: <Widget>[
-                                    Text('Subtotal: ', style: TextStyle(fontSize: 18,),),
-                                    Text('Br'+ snapshot.data.subtotal.toString(), style: TextStyle(fontSize: 18,),)
-                                  ],
-                                ),
+                                // Row(
+                                //   mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                                //   children: <Widget>[
+                                //     Text('Subtotal: ', style: TextStyle(fontSize: 18,),),
+                                //     Text('Br'+ snapshot.data.subtotal.toString(), style: TextStyle(fontSize: 18,),)
+                                //   ],
+                                // ),
                                 SizedBox(height: 8),
                                 Row(
                                   mainAxisAlignment: MainAxisAlignment.spaceBetween,
                                   children: <Widget>[
                                     Text('Shipping Method: ', style: TextStyle(fontSize: 18,),),
-                                    //Text(snapshot.data.shippingMethodTitle, style: TextStyle(fontSize: 18,),)
+                                    Text(snapshot.data.shippingMethodTitle, style: TextStyle(fontSize: 18,),)
                                   ],
                                 ),
                                 SizedBox(height: 8),
