@@ -13,7 +13,6 @@ class OrderDetail extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    // TODO: implement build
     return Scaffold(
       appBar: AppBar(
         title: Text(''),
@@ -24,7 +23,6 @@ class OrderDetail extends StatelessWidget {
           future: apiService.getOrders(id: idd),
           builder: (BuildContext context,AsyncSnapshot snapshot ) {
               if (snapshot.connectionState == ConnectionState.done) {
-                List<ProductItem> itemlist = snapshot.data.lineItems;
                 if(snapshot.data.status == 'processing'){
                   col = Colors.orange;
                 }
@@ -150,87 +148,88 @@ class OrderDetail extends StatelessWidget {
                       Text('Status', style: TextStyle(fontSize: 20, fontWeight: FontWeight.bold)),
                       SizedBox(height: 10,),
                       Container(
-                        height: MediaQuery.of(context).size.height * 0.5,
                         child: Card(
                           shape: RoundedRectangleBorder(
                             side: BorderSide(color: Colors.grey[200]),
                             borderRadius: BorderRadius.circular(10.0),
                           ),
                           color: Colors.grey[200],
-                          //height: 50,
-                          child: Column(
-                              //mainAxisAlignment: MainAxisAlignment.spaceEvenly,
-                              children: <Widget>[
-                                SizedBox(height: MediaQuery.of(context).size.height * 0.04),
-                                  Row(
-                                    mainAxisAlignment: MainAxisAlignment.spaceEvenly,
-                                    children: <Widget>[
-                                      Text(snapshot.data.createdAt.toString().substring(0,10),),
-                                      Container(
-                                        height: 50,
-                                        width: 50,
-                                        child: Center(child: Text('1', style: TextStyle(color: Colors.white, fontSize: 15),)),
-                                        decoration: BoxDecoration(
-                                            color: col,
-                                            shape: BoxShape.circle
-                                        ),
-                                      ),
-                                      Text('Processing', style: TextStyle(fontSize: 18),),
-                                    ],
-                                  ),
+                          child: Padding(
+                            padding: const EdgeInsets.only(bottom: 8),
+                            child: Column(
+                                mainAxisAlignment: MainAxisAlignment.spaceEvenly,
+                                children: <Widget>[
                                   SizedBox(height: MediaQuery.of(context).size.height * 0.04),
-                                  Row(
-                                    mainAxisAlignment: MainAxisAlignment.spaceEvenly,
-                                    children: <Widget>[
-                                      Text('                 '),
-                                      Container(
-                                        height: 50,
-                                        width: 50,
-                                        child: Center(child: Text('2', style: TextStyle(color: Colors.white, fontSize: 15),)),
-                                        decoration: BoxDecoration(
-                                            color: col2,
-                                            shape: BoxShape.circle
+                                    Row(
+                                      mainAxisAlignment: MainAxisAlignment.spaceEvenly,
+                                      children: <Widget>[
+                                        Text(snapshot.data.createdAt.toString().substring(0,10),),
+                                        Container(
+                                          height: 50,
+                                          width: 50,
+                                          child: Center(child: Text('1', style: TextStyle(color: Colors.white, fontSize: 15),)),
+                                          decoration: BoxDecoration(
+                                              color: col,
+                                              shape: BoxShape.circle
+                                          ),
                                         ),
-                                      ),
-                                      Text('Completed', style: TextStyle(fontSize: 18),),
-                                    ],
-                                  ),
-                                  SizedBox(height: MediaQuery.of(context).size.height * 0.04),
-                                  Row(
-                                    mainAxisAlignment: MainAxisAlignment.spaceEvenly,
-                                    children: <Widget>[
-                                      Text('                 '),
-                                      Container(
-                                        height: 50,
-                                        width: 50,
-                                        child: Center(child: Text('3', style: TextStyle(color: Colors.white, fontSize: 15),)),
-                                        decoration: BoxDecoration(
-                                            color: col3,
-                                            shape: BoxShape.circle
+                                        Text('Processing', style: TextStyle(fontSize: 18),),
+                                      ],
+                                    ),
+                                    SizedBox(height: MediaQuery.of(context).size.height * 0.04),
+                                    Row(
+                                      mainAxisAlignment: MainAxisAlignment.spaceEvenly,
+                                      children: <Widget>[
+                                        Text('                 '),
+                                        Container(
+                                          height: 50,
+                                          width: 50,
+                                          child: Center(child: Text('2', style: TextStyle(color: Colors.white, fontSize: 15),)),
+                                          decoration: BoxDecoration(
+                                              color: col2,
+                                              shape: BoxShape.circle
+                                          ),
                                         ),
-                                      ),
-                                      Text('Cancelled', style: TextStyle(fontSize: 18),),
-                                    ],
-                                  ),
-                                  SizedBox(height: MediaQuery.of(context).size.height * 0.04),
-                                  Row(
-                                    mainAxisAlignment: MainAxisAlignment.spaceEvenly,
-                                    children: <Widget>[
-                                      Text(snapshot.data.dateModified.toString().substring(0,10),),
-                                      Container(
-                                        height: 50,
-                                        width: 50,
-                                        child: Center(child: Text('4', style: TextStyle(color: Colors.white, fontSize: 15),)),
-                                        decoration: BoxDecoration(
-                                            color: col4,
-                                            shape: BoxShape.circle
+                                        Text('Completed', style: TextStyle(fontSize: 18),),
+                                      ],
+                                    ),
+                                    SizedBox(height: MediaQuery.of(context).size.height * 0.04),
+                                    Row(
+                                      mainAxisAlignment: MainAxisAlignment.spaceEvenly,
+                                      children: <Widget>[
+                                        Text('                 '),
+                                        Container(
+                                          height: 50,
+                                          width: 50,
+                                          child: Center(child: Text('3', style: TextStyle(color: Colors.white, fontSize: 15),)),
+                                          decoration: BoxDecoration(
+                                              color: col3,
+                                              shape: BoxShape.circle
+                                          ),
                                         ),
-                                      ),
-                                      Text('Refunded', style: TextStyle(fontSize: 18),),
-                                    ],
-                                  ),
-                              ],
-                            ),
+                                        Text('Cancelled', style: TextStyle(fontSize: 18),),
+                                      ],
+                                    ),
+                                    SizedBox(height: MediaQuery.of(context).size.height * 0.04),
+                                    Row(
+                                      mainAxisAlignment: MainAxisAlignment.spaceEvenly,
+                                      children: <Widget>[
+                                        Text(snapshot.data.dateModified.toString().substring(0,10),),
+                                        Container(
+                                          height: 50,
+                                          width: 50,
+                                          child: Center(child: Text('4', style: TextStyle(color: Colors.white, fontSize: 15),)),
+                                          decoration: BoxDecoration(
+                                              color: col4,
+                                              shape: BoxShape.circle
+                                          ),
+                                        ),
+                                        Text('Refunded', style: TextStyle(fontSize: 18),),
+                                      ],
+                                    ),
+                                ],
+                              ),
+                          ),
                         ),
                       ),
                       SizedBox(height: 20,),
