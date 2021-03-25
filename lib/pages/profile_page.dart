@@ -41,7 +41,7 @@ class _ProfilePageState extends State<ProfilePage> {
               width: 150,
               height: 150,
               child: CircleAvatar(
-                child: Image.network("${Config.userInfo.avatarUrl}"),
+                child: Config.userInfo.avatarUrl != null?Image.network("${Config.userInfo.avatarUrl}"):Icon(Icons.person),
               ),
             ),
           ),
@@ -73,27 +73,39 @@ class _ProfilePageState extends State<ProfilePage> {
         
            Padding(
             padding: const EdgeInsets.fromLTRB(18, 20, 0, 0),
-            child: ListTile(
+            child: GestureDetector(
+              child:ListTile(
 
                 title: Text('Feedback',style: TextStyle(fontSize: 20,),),
                 leading: Icon(Icons.feedback, color: Colors.orangeAccent,),
                 trailing: IconButton(
                   icon: Icon(Icons.chevron_right,color:Colors.black),
                   onPressed: (){
-                     Navigator.push(
+              //        Navigator.push(
+              //   context,
+              //   MaterialPageRoute(
+              //     builder: (context) => Feed(),
+              //     settings: RouteSettings(arguments: ''),
+              //   ),
+              // );
+                  },
+                  ),
+              ),
+              onTap: (){
+                   Navigator.push(
                 context,
                 MaterialPageRoute(
                   builder: (context) => Feed(),
                   settings: RouteSettings(arguments: ''),
                 ),
               );
-                  },
-                  ),
-              ),
+              },
             ),
+           ),
              
           Padding(
             padding: const EdgeInsets.fromLTRB(18, 20, 0, 0),
+            child:GestureDetector(
             child: ListTile(
 
                 title: Text('Term And Condition',style: TextStyle(fontSize: 20,),),
@@ -101,47 +113,73 @@ class _ProfilePageState extends State<ProfilePage> {
                 trailing: IconButton(
                   icon: Icon(Icons.chevron_right,color:Colors.black),
                   onPressed: (){
-                     Navigator.push(
+              //        Navigator.push(
+              //   context,
+              //   MaterialPageRoute(
+              //     builder: (context) => TermPage(),
+              //     settings: RouteSettings(arguments: ''),
+              //   ),
+              // );
+                  },
+                  ),
+                  onTap: (){
+                      Navigator.push(
                 context,
                 MaterialPageRoute(
                   builder: (context) => TermPage(),
                   settings: RouteSettings(arguments: ''),
                 ),
               );
-                  },
-                  ),
+                  }
               ),
+            ),
             ),
              Padding(
             padding: const EdgeInsets.fromLTRB(18, 20, 0, 0),
+            child:GestureDetector(
             child: ListTile(
                 title: Text('About Us', style: TextStyle(fontSize: 20,),),
                 leading: Icon(Icons.info_outline, color: Colors.orangeAccent,),
                 trailing: IconButton(
                   icon: Icon(Icons.chevron_right,color:Colors.black),
                   onPressed: (){
-                    Navigator.push(
+              //       Navigator.push(
+              //   context,
+              //   MaterialPageRoute(
+              //     builder: (context) => About(),
+              //     settings: RouteSettings(arguments: ''),
+              //   ),
+              // );
+                  },
+                  ),
+              ),
+              onTap: (){
+                   Navigator.push(
                 context,
                 MaterialPageRoute(
                   builder: (context) => About(),
                   settings: RouteSettings(arguments: ''),
                 ),
               );
-                  },
-                  ),
-              ),
+              },
+            ),
             ),
              Padding(
             padding: const EdgeInsets.fromLTRB(18, 20, 0, 0),
+            child:GestureDetector(
             child: ListTile(
 
                 title: Text('Log Out', style: TextStyle(fontSize: 20,),),
                 leading: Icon(Icons.exit_to_app, color: Colors.orangeAccent,),
                 trailing: IconButton(
                   icon: Icon(Icons.chevron_right,color:Colors.black),
-                  onPressed: (){},
-                  ),
+                   onPressed: (){},
+                   ),
               ),
+              onTap:(){
+
+              }
+            ),
             )
         ],
       ),
