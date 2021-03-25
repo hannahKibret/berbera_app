@@ -12,20 +12,26 @@ class SignInPage extends StatefulWidget {
 
 class _SignInPageState extends State<SignInPage> {
 
-  bool isApiProcess = false;
+  bool isApiProcess = true;
+  bool isCorrect = true;
+  static const bool _passwordVisible = false;
   GlobalKey<FormState> globalkey = GlobalKey<FormState>();
 String username;
 String password;
 APIService apiService;
+
+ 
   @override
   void initstate(){
     super.initState();
+  
 
   }
  // final _formKey = GlobalKey<FormState>();
 
   @override
   Widget build(BuildContext context) {
+    
     final double height = MediaQuery.of(context).size.height * 0.4;
     return MaterialApp(
       theme: ThemeData(
@@ -124,10 +130,18 @@ APIService apiService;
                               icon: const Icon(Icons.vpn_key),
                               hintText: 'Enter your password',
                               labelText: 'Password',
+                            //   suffixIcon: IconButton(icon:Icon(_passwordVisible ? Icons.visibility : Icons.visibility_off), 
+                            //  onPressed: (){},
+                             
+                              
+                            //   )
+                              
                             ),
+                            
+                            
                           ),
                         ),
-                        Padding(
+                        isApiProcess?Padding(
                           padding: const EdgeInsets.all(28.0),
                           child: ButtonTheme(
                             height: 50,
@@ -139,57 +153,77 @@ APIService apiService;
                                 //TODO: login Action
 
                                 setState(() {
-                                  isApiProcess = true;
+                                  isApiProcess = false;
+                                  isCorrect = true;
                                 });
                                 apiService = new APIService();
                                 apiService.loginUser(username, password).then((user) {
                                   print(username+password);
                                 //  print(model.code);
                                 if(user != null){
+                                
+                                setState(() {
+                                  isCorrect = true;
+                                  isApiProcess = true;
+                                });
                                 print(user.data.toJson());
                                 print('token ${Config.token}');
+                                // Navigator.of(context).pop();
 
-                                  return showDialog(
-                                    context: context,
-                                    builder: (ctx) => AlertDialog(
-                                      title: Text("Log in"),
-                                      content: Text("LOGIN OK"),
-                                      actions: <Widget>[
-                                        FlatButton(
-                                          child: Text("okay"),
-                                          onPressed: () {
-                                            Navigator.of(ctx).pop();
-
-                                            Navigator.pushReplacement(
+                                            Navigator.push(
                                               context,
                                               MaterialPageRoute(
                                                 builder: (context) => HomePage(),
                                                 settings: RouteSettings(arguments: ''),
                                               ),
                                             );
-                                          },
-                                        ),
-                                      ],
-                                    ),
-                                  );
+                                  // return showDialog(
+                                  //   context: context,
+                                    
+                                  //   builder: (ctx) => AlertDialog(
+                                  //     title: Text("Log in"),
+                                  //     content: Text("LOGIN OK"),
+                                  //     actions: <Widget>[
+                                  //       FlatButton(
+                                  //         child: Text("okay"),
+                                  //         onPressed: () {
+                                  //           Navigator.of(ctx).pop();
+
+                                  //           Navigator.pushReplacement(
+                                  //             context,
+                                  //             MaterialPageRoute(
+                                  //               builder: (context) => HomePage(),
+                                  //               settings: RouteSettings(arguments: ''),
+                                  //             ),
+                                  //           );
+                                  //         },
+                                  //       ),
+                                  //     ],
+                                  //   ),
+                                  // );
                               }
                                 else{
-                                  return showDialog(
-                                    context: context,
-                                    builder: (ctx) => AlertDialog(
-                                      title: Text("Log in"),
-                                      content: Text("LOGIN Faild"),
-                                      actions: <Widget>[
-                                        FlatButton(
-                                          child: Text("CANCEL"),
-                                          onPressed: () {
-                                            Navigator.of(ctx).pop();
+          
+                                setState(() {
+                                  isCorrect = false;
+                                  isApiProcess = true;
+                                });
+                                  // return showDialog(
+                                  //   context: context,
+                                  //   builder: (ctx) => AlertDialog(
+                                  //     title: Text("Log in"),
+                                  //     content: Text("LOGIN Faild"),
+                                  //     actions: <Widget>[
+                                  //       FlatButton(
+                                  //         child: Text("CANCEL"),
+                                  //         onPressed: () {
+                                  //           Navigator.of(ctx).pop();
 
-                                          },
-                                        ),
-                                      ],
-                                    ),
-                                  );
+                                  //         },
+                                  //       ),
+                                  //     ],
+                                  //   ),
+                                  // );
                                 }
                                 }
                                 );
@@ -209,7 +243,12 @@ APIService apiService;
                                   style: TextStyle(fontSize: 14, fontWeight: FontWeight.bold)),
                             ),
                           )
-                        ),
+                        ):Center(child:Container(padding: const EdgeInsets.only(top:28.0,bottom:28.0),height: 90, width: 40,child:CircularProgressIndicator())),
+                        isCorrect?SizedBox():
+                        Padding(
+                          padding: const EdgeInsets.only(top:5.0),
+                          child: Center(child:Text('Incorrect Username or Password!',style:TextStyle(color: Colors.red))),
+                          ),
                         Padding(
                           padding: const EdgeInsets.only(top: 20.0),
                           child: Row(
