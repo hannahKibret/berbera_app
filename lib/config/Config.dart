@@ -8,6 +8,7 @@ class Config {
   static String attributes = "products/attributes/";
   static String userURL = "customers";
   static String wcfmURL = "https://berberamarket.com/wp-json/wcfmmp/v1/";
+  static String imageURL = 'https://berberamarket.com/wp-content/uploads/2021/02/';
   static String orders = "orders/";
   static String products = "products/"; 
   static String review = "reviews/";
@@ -27,4 +28,6 @@ class Config {
   static String storeid;
   static bool isOffline = false;
   static FullUserInfo userInfo;
+  static List<String> ids= [];
+  static List<Map<String,bool>> catMaps = [];
 }
