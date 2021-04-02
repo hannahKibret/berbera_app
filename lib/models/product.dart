@@ -46,9 +46,10 @@ class Product {
   List<Tag> tags = [];
   Map<String, Map<String, AddonsOption>> defaultAddonsOptions = {};
   List<Category> categories = [];
-
+ String stockStatus;
   List<ProductAddons> addOns;
   List<AddonsOption> selectedOptions;
+  List<Map<String, String>> imagess=[];
 
   /// For downloadable products
   bool isPurchased = false;
@@ -65,6 +66,7 @@ class Product {
   bool isFeatured = false;
   String vendorAdminImageFeature;
   List<String> categoryIds = [];
+  List<Map<String,String>> categoryIdss = [];
 
   Product.empty(this.id) {
     name = '';
@@ -89,6 +91,7 @@ class Product {
     salePrice = p.salePrice;
     onSale = p.onSale;
     inStock = p.inStock;
+    stockStatus = p.stockStatus;
     averageRating = p.averageRating;
     ratingCount = p.ratingCount;
     totalSales = p.totalSales;
@@ -117,6 +120,8 @@ class Product {
     defaultAddonsOptions = p.defaultAddonsOptions;
     selectedOptions = p.selectedOptions;
     addOns = p.addOns;
+    imagess = p.imagess;
+    categoryIdss = p.categoryIdss;
   }
 
   Product.fromJson(Map<String, dynamic> parsedJson) {
@@ -125,6 +130,7 @@ class Product {
       sku = parsedJson["sku"];
       name = parsedJson["name"];
       type = parsedJson["type"];
+      stockStatus = parsedJson['stock_status'];
       description = isNotBlank(parsedJson["description"])
           ? parsedJson["description"]
           : parsedJson["short_description"];
@@ -365,31 +371,34 @@ class Product {
 
   Map<String, dynamic> toJson() {
     return {
-      "id": id,
-      "sku": sku,
+      //"id": id,
+      //"sku": sku,
       "name": name,
       "description": description,
-      "permalink": permalink,
-      "price": price,
-      "regularPrice": regularPrice,
-      "salePrice": salePrice,
-      "onSale": onSale,
-      "inStock": inStock,
-      "averageRating": averageRating,
-      "ratingCount": ratingCount,
+      //"permalink": permalink,
+      "type": type,
+     // "price": price,
+      "regular_price": regularPrice,
+      "sale_price": salePrice,
+     // "onSale": onSale,
+      "in_stock": inStock,
+      //"stock_status": stockStatus,
+      "manage_stock": manageStock,
+      "average_rating": averageRating,
+      "rating_count": ratingCount,
       "total_sales": totalSales,
       "date_on_sale_from": dateOnSaleFrom,
       "date_on_sale_to": dateOnSaleTo,
       "images": images,
-      "imageFeature": imageFeature,
+      //"imageFeature": imageFeature,
       "attributes": attributes?.map((e) => e.toJson())?.toList(),
-      "addOns": addOns?.map((e) => e.toJson())?.toList(),
-      "addonsOptions": selectedOptions?.map((e) => e.toJson())?.toList(),
-      "categoryId": categoryId,
+      //"addOns": addOns?.map((e) => e.toJson())?.toList(),
+      //"addonsOptions": selectedOptions?.map((e) => e.toJson())?.toList(),
+      "categories": categoryIdss,
       "stock_quantity": stockQuantity,
-      "idShop": idShop,
+      //"idShop": idShop,
       "store": store?.toJson(),
-      "variations": variations?.map((e) => e?.toJson())?.toList(),
+      //"variations": variations?.map((e) => e?.toJson())?.toList(),
     };
   }
 
@@ -405,6 +414,7 @@ class Product {
       salePrice = json['salePrice'];
       onSale = json['onSale'] ?? false;
       inStock = json['inStock'];
+      stockStatus = json['stockStatus'];
       averageRating = json['averageRating'];
       ratingCount = json['ratingCount'];
       totalSales = json['total_sales'];
@@ -464,7 +474,7 @@ class Product {
   }
 
   @override
-  String toString() => 'Product { id: $id name: $name }';
+  String toString() => 'Product { name: $name, type: $type, description: $description, price: $regularPrice, stockMange: $manageStock, quantity: $stockQuantity, stockStatus: $stockStatus, images: $images}';
 
   /// Get product ID from mix String productID-ProductVariantID
   static String cleanProductID(productString) {
@@ -489,7 +499,11 @@ class Product {
     return _price;
   }
 
+  // ignore: missing_return
+ 
+
 }
+
 
 
 
