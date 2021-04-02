@@ -1,13 +1,17 @@
 
+
 import 'package:berbera_app/models/product_attribute.dart';
-import 'package:flutter/foundation.dart';
+//import 'package:flutter/foundation.dart';
 import 'package:flutter/material.dart';
 import 'package:image_picker/image_picker.dart';
 import 'package:berbera_app/services/api_service.dart';
+import 'package:berbera_app/models/category.dart';
+
+import 'Config.dart';
 
   const kLOG_TAG = "[Berbera]";
   const kLOG_ENABLE = true;
-
+  bool checked = true;
   void printLog(dynamic data) {
     if (kLOG_ENABLE) {
       /// "y-m-d h:min:sec.msZ"
@@ -46,13 +50,41 @@ List<Widget> getAttributeWidget(String id){
       for(int i=0; i< _attributes.length; i++){
         _widgets.add( Row(
           children: [
-            Checkbox(value: true, onChanged: null),
+            Checkbox(value: checked, onChanged: (checked){
+              checked = !checked;
+              
+            },),
             Text(_attributes[i].name),
           ],
         ));
       }
     });
     return _widgets;
+  }catch(e){
+printLog(e.toString());
+  }
+
+}
+ getCategory(){
+  APIService apiService;
+  apiService = new APIService();
+  List<Map<String,bool>> _cats = [];
+Map<String,bool> s ={};
+  try{
+    apiService.getcategories().then((value) {
+     value.forEach((val){Config.ids.add(val.id);});
+     print('catttttttttttttttt$value');
+   
+   for(Category val in value){
+    
+     Config.catMaps.add({val.name : false});
+      
+   }
+  // s = {for(Category val in value) '${val.name}': false};
+     
+    });
+    print('ratttttttttttttttt${Config.catMaps}');
+   
   }catch(e){
 printLog(e.toString());
   }
